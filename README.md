@@ -28,6 +28,14 @@ HTML/CSS/JS puro, sem build e sem dependências. Banco opcional no Supabase (pla
 | `assets/style.css` | Identidade visual (tokens, botões, carimbos, washi, post-it) |
 | `docs/supabase.sql` | Tabelas, regras de acesso e funções do banco |
 
+## Extras
+| Pasta/arquivo | O que é |
+|---|---|
+| `materiais/` | Material impresso com QR code (panfleto, cartão fidelidade, adesivo, cartãozinho de obrigada) + PDFs prontos em `materiais/pdf/` |
+| `assets/artes/lancamento-*.jpg` | Carrossel de lançamento do site para o Instagram |
+| `scripts/ligar-nuvem.py` | Liga o Supabase: `python3 scripts/ligar-nuvem.py <URL> <chave pública>` (testa, grava e publica) |
+| `docs/ROTINA-IDEIAS.md` | Prompt da rotina diária que atualiza a aba Ideias |
+
 ## Rodar no computador
 ```bash
 cd ~/Developer/"Doce Pedaço"

@@ -1108,6 +1108,13 @@ TELAS.divulgacao = () => {
         ${(TXT.artesProntas || []).length ? `<h3 style="margin:16px 0 10px">Suas fotos, prontas pra postar ♡</h3>
         <div class="artes-prontas">${TXT.artesProntas.map((a) => `<figure><img src="assets/artes/${a.arq}-post.jpg" alt="Arte ${esc(a.nome)}" loading="lazy">
           <figcaption>${esc(a.nome)}<span><a class="btn mini claro" href="assets/artes/${a.arq}-post.jpg" download>post</a><a class="btn mini claro" href="assets/artes/${a.arq}-story.jpg" download>story</a></span></figcaption></figure>`).join("")}</div>` : ""}
+        <h3 style="margin:16px 0 10px">Carrossel de lançamento do site 🎉</h3>
+        <div class="artes-prontas">${[1, 2, 3].map((n) => `<figure><img src="assets/artes/lancamento-${n}.jpg" alt="Post de lançamento ${n}" loading="lazy"><figcaption>parte ${n}<span><a class="btn mini claro" href="assets/artes/lancamento-${n}.jpg" download>baixar</a></span></figcaption></figure>`).join("")}</div>
+        <div class="texto-pronto" style="margin-top:10px">${esc("Agora a Doce Pedaço tem site! 💗\nToda terça abre a fornada da semana: você escolhe os docinhos, o dia, e pronto.\nAs vagas são limitadas, então corre na terça 🧁\nE tem cartão fidelidade: no 10º pedido, o docinho é presente 🎁\n\nLink na bio ✨\n\n" + TXT.hashtags)}</div>
+        <button class="btn mini claro" data-acao="copiar" data-t="${esc("Agora a Doce Pedaço tem site! 💗\nToda terça abre a fornada da semana: você escolhe os docinhos, o dia, e pronto.\nAs vagas são limitadas, então corre na terça 🧁\nE tem cartão fidelidade: no 10º pedido, o docinho é presente 🎁\n\nLink na bio ✨\n\n" + TXT.hashtags)}">${ic("copiar")}Copiar legenda</button>
+        <h3 style="margin:16px 0 10px">Material impresso com QR code 🖨️</h3>
+        <p class="small muted" style="margin:0 0 8px">Panfleto, cartão fidelidade, adesivo pra embalagem e cartãozinho de obrigada. Cada QR mostra em Resultados de onde a cliente veio.</p>
+        <a class="btn mini rosa" href="materiais/" target="_blank" rel="noopener">abrir pra imprimir</a>
         <h3 style="margin:16px 0 10px">Cardápio para o feed</h3>
         <div class="acoes"><button class="btn mini rosa" data-acao="arte-cardapio" data-f="feed">${ic("baixar")}Post (1080×1350)</button><button class="btn mini claro" data-acao="arte-cardapio" data-f="story">${ic("baixar")}Story (1080×1920)</button></div>
       </div>

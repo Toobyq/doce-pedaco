@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doce Pedaço · material impresso</title>
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .w { max-width: 1000px; margin: 0 auto; padding: 36px 20px 80px; }
+    .topo { text-align: center; margin-bottom: 24px; } .topo h1 { font-size: clamp(2rem, 5vw, 3rem); } .topo .mao { font-size: 1.6rem; }
+    .topo p { color: var(--chocolate-2); max-width: 36em; margin: 8px auto 0; }
+    .bloco { margin-top: 34px; } .bloco-cab { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .bloco-cab h2 { font-size: 1.5rem; } .bloco-cab p { margin: 2px 0 0; color: var(--cacau); font-size: .9rem; }
+    /* folha A4 (prévia em tela com escala) */
+    .folha { width: 210mm; min-height: 297mm; background: #fff; margin: 0 auto; box-shadow: var(--sombra); padding: 8mm; display: grid; gap: 4mm; align-content: start; }
+    .previa { overflow-x: auto; padding: 6px; }
+    @media (max-width: 900px) { .folha { zoom: .45; } }
+    .mascara { font-family: var(--f-display); font-weight: 900; line-height: .85; }
+    .mascara .d { color: var(--chocolate); } .mascara .p { color: var(--rosa); }
+
+    /* panfleto A6 (4 por folha) */
+    .panfletos { grid-template-columns: 1fr 1fr; }
+    .panf { height: 136mm; border-radius: 6mm; background: var(--rosa-etiqueta); position: relative; padding: 9mm 8mm; overflow: hidden; display: flex; flex-direction: column; }
+    .panf::after { content: ""; position: absolute; inset: 3mm; border: .5mm dashed var(--rosa-borda); border-radius: 4mm; }
+    .panf .topo-p { display: flex; align-items: center; gap: 3mm; } .panf .topo-p img { width: 13mm; }
+    .panf .mascara { font-size: 9mm; }
+    .panf h3 { font-size: 7.5mm; line-height: 1.02; margin: 6mm 0 2mm; } .panf h3 em { color: var(--morango); font-variation-settings: "SOFT" 100, "WONK" 1; }
+    .panf ul { list-style: none; padding: 0; margin: 3mm 0 0; font-size: 3.4mm; color: var(--chocolate-2); }
+    .panf li { margin: 1.5mm 0; } .panf li b { color: var(--chocolate); }
+    .panf .rodape-p { margin-top: auto; display: flex; align-items: center; gap: 4mm; background: #fff; border-radius: 4mm; padding: 3mm; position: relative; z-index: 1; }
+    .panf .rodape-p img { width: 24mm; height: 24mm; } .panf .rodape-p b { font-family: var(--f-mao); font-size: 6mm; color: var(--morango-escuro); display: block; line-height: 1; } .panf .rodape-p small { font-size: 2.8mm; color: var(--chocolate-2); }
+
+    /* cartão fidelidade 85x55 (10 por folha) */
+    .cartoes { grid-template-columns: 1fr 1fr; justify-items: center; gap: 2mm 6mm; padding: 5mm 8mm !important; }
+    .cartao { width: 85mm; height: 55mm; border-radius: 4mm; position: relative; overflow: hidden; padding: 5mm; }
+    .cartao.frente { background: var(--rosa-etiqueta); }
+    .cartao.frente::after { content: ""; position: absolute; inset: 2mm; border: .4mm dashed var(--rosa-borda); border-radius: 3mm; }
+    .cartao .cab { display: flex; justify-content: space-between; align-items: flex-start; } .cartao .mascara { font-size: 6.5mm; }
+    .cartao .cab > span:last-child { font-family: var(--f-mao); color: var(--morango-escuro); font-size: 4.6mm; transform: rotate(-3deg); }
+    .cartao .selos-p { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2mm; margin-top: 4mm; }
+    .cartao .selos-p i { aspect-ratio: 1; border-radius: 50%; border: .4mm dashed var(--rosa-borda); background: #fff; display: grid; place-items: center; font-style: normal; font-size: 4mm; }
+    .cartao .selos-p i:last-child { background: var(--baunilha); border-style: solid; border-color: #e7c46c; }
+    .cartao .pe { position: absolute; left: 5mm; right: 5mm; bottom: 3.5mm; font-size: 2.6mm; color: var(--chocolate-2); text-align: center; }
+    .cartao.verso { background: var(--chocolate); color: var(--rosa-etiqueta); display: flex; align-items: center; gap: 5mm; }
+    .cartao.verso .qr { background: #fff; border-radius: 3mm; padding: 2mm; width: 30mm; height: 30mm; flex: none; } .cartao.verso .qr img { width: 100%; height: 100%; }
+    .cartao.verso b { font-family: var(--f-display); font-size: 5mm; display: block; line-height: 1.05; } .cartao.verso small { font-size: 2.8mm; opacity: .9; display: block; margin-top: 2mm; }
+    .cartao.verso .script { color: var(--rosa); font-size: 6mm; display: block; }
+
+    /* adesivo QR 50mm (12 por folha) */
+    .adesivos { grid-template-columns: repeat(3, 1fr); justify-items: center; gap: 6mm; }
+    .adesivo-qr { width: 56mm; height: 56mm; border-radius: 50%; background: var(--rosa-etiqueta); border: 2mm solid var(--rosa-borda); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .adesivo-qr::after { content: ""; position: absolute; inset: 1.4mm; border-radius: 50%; border: .3mm dashed var(--rosa-borda); }
+    .adesivo-qr img { width: 24mm; height: 24mm; background: #fff; padding: 1.2mm; border-radius: 2mm; }
+    .adesivo-qr b { font-family: var(--f-mao); color: var(--morango-escuro); font-size: 4.4mm; margin-top: 1.2mm; line-height: 1; }
+    .adesivo-qr small { font-size: 2.3mm; color: var(--chocolate-2); font-weight: 800; }
+    .adesivo-qr .mascara { font-size: 3.6mm; margin-bottom: 1mm; display: flex; gap: 1mm; }
+
+    /* agradecimento (8 por folha, 90x65) */
+    .obrigados { grid-template-columns: 1fr 1fr; justify-items: center; gap: 5mm; }
+    .obrigado { width: 92mm; height: 66mm; background: #fff; border: .5mm solid var(--linha); border-radius: 4mm; position: relative; padding: 6mm; overflow: hidden; }
+    .obrigado::before { content: ""; position: absolute; top: -4mm; right: -6mm; width: 30mm; height: 30mm; border-radius: 50%; background: var(--rosa-etiqueta); }
+    .obrigado .script { color: var(--rosa); font-size: 9mm; position: relative; display: block; line-height: 1; }
+    .obrigado p { font-size: 3.3mm; color: var(--chocolate-2); margin: 3mm 0 0; position: relative; max-width: 60mm; }
+    .obrigado .linha-qr { position: absolute; left: 6mm; right: 6mm; bottom: 5mm; display: flex; align-items: center; gap: 3mm; }
+    .obrigado .linha-qr img { width: 16mm; height: 16mm; } .obrigado .linha-qr small { font-size: 2.7mm; color: var(--chocolate-2); } .obrigado .linha-qr b { display: block; font-family: var(--f-mao); font-size: 4.4mm; color: var(--morango-escuro); }
+
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; } .w { padding: 0; max-width: none; } .topo, .bloco-cab, .nao-imprime { display: none !important; }
+      .folha { box-shadow: none; zoom: 1 !important; height: 296mm; overflow: hidden; margin: 0 !important; }
+      .folha + .folha { break-before: page; }
+      body[data-so] .bloco { display: none; } body[data-so="panfleto"] #b-panfleto, body[data-so="cartao"] #b-cartao, body[data-so="adesivo"] #b-adesivo, body[data-so="obrigado"] #b-obrigado { display: block; }
+      .bloco { margin: 0; } .previa { padding: 0 !important; overflow: visible !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="w">
+    <header class="topo"><span class="mao">pra imprimir ♡</span><h1>Material da Doce Pedaço</h1>
+      <p>Toque em <b>imprimir</b> no material que quiser. Use papel couché ou fotográfico; no diálogo de impressão, marque <b>tamanho real (100%)</b> e <b>gráficos de fundo</b>. Cada QR code leva ao site e conta de onde a cliente veio (aparece em Resultados).</p></header>
+
+    <section class="bloco" id="b-panfleto"><div class="bloco-cab"><div><h2>Panfleto</h2><p>4 por folha (tamanho A6). Pra entregar na vizinhança, no trabalho, junto de amostras.</p></div><button class="btn rosa mini" data-imprimir="panfleto">imprimir</button></div>
+      <div class="previa"><div class="folha panfletos" id="panfletos"></div></div></section>
+
+    <section class="bloco" id="b-cartao"><div class="bloco-cab"><div><h2>Cartão fidelidade</h2><p>Frente e verso, 85×55 mm. Imprima a folha da frente, vire o papel e imprima a do verso.</p></div><button class="btn rosa mini" data-imprimir="cartao">imprimir</button></div>
+      <div class="previa"><div class="folha cartoes" id="cartoes-frente"></div><div class="folha cartoes" id="cartoes-verso" style="margin-top:8mm"></div></div></section>
+
+    <section class="bloco" id="b-adesivo"><div class="bloco-cab"><div><h2>Adesivo pra embalagem</h2><p>12 por folha, redondo de 5,6 cm. Em papel adesivo: cola na tampa e a cliente pede de novo pelo QR.</p></div><button class="btn rosa mini" data-imprimir="adesivo">imprimir</button></div>
+      <div class="previa"><div class="folha adesivos" id="adesivos"></div></div></section>
+
+    <section class="bloco" id="b-obrigado"><div class="bloco-cab"><div><h2>Cartãozinho de obrigada</h2><p>8 por folha. Vai dentro de cada pedido.</p></div><button class="btn rosa mini" data-imprimir="obrigado">imprimir</button></div>
+      <div class="previa"><div class="folha obrigados" id="obrigados"></div></div></section>
+  </div>
+  <script src="../assets/config.js"></script>
+  <script>
+    const C = window.DP_CONFIG; const insta = C.instagram ? "@" + C.instagram : "";
+    const logo = (cls = "") => `<span class="mascara ${cls}"><span class="d">doce</span> <span class="p">pedaço</span></span>`;
+    const rep = (n, html) => Array.from({ length: n }, () => html).join("");
+    document.getElementById("panfletos").innerHTML = rep(4, `<div class="panf">
+      <div class="topo-p"><img src="../assets/logo.svg" alt="">${logo()}</div>
+      <h3>Doces feitos com carinho, <em>uma fornada por semana.</em></h3>
+      <ul><li>🧁 <b>Terça:</b> pedidos abertos no site</li><li>👩‍🍳 <b>Quarta:</b> mãos na massa</li><li>🛵 <b>Quinta+:</b> retira ou recebe em casa</li><li>🎁 <b>10º pedido:</b> o docinho é presente</li></ul>
+      <div class="rodape-p"><img src="qr-panfleto.svg" alt="QR code"><div><b>aponta a câmera ♡</b><small>e vê o cardápio da semana${insta ? "<br>" + insta : ""}</small></div></div></div>`);
+    document.getElementById("cartoes-frente").innerHTML = rep(10, `<div class="cartao frente"><div class="cab">${logo()}<span>cartão fidelidade</span></div>
+      <div class="selos-p">${rep(9, "<i></i>")}<i>🎁</i></div><div class="pe">a cada pedido, um carimbo ♡ no 10º, o docinho é presente</div></div>`);
+    document.getElementById("cartoes-verso").innerHTML = rep(10, `<div class="cartao verso"><div class="qr"><img src="qr-cartao.svg" alt=""></div>
+      <div><span class="script">feito com carinho</span><b>Pedidos toda terça</b><small>Aponta a câmera pro QR e escolhe os docinhos da semana.${insta ? "<br>" + insta : ""}</small></div></div>`);
+    document.getElementById("adesivos").innerHTML = rep(12, `<div class="adesivo-qr">${logo()}<img src="qr-embalagem.svg" alt=""><b>pede de novo ♡</b><small>pedidos toda terça</small></div>`);
+    document.getElementById("obrigados").innerHTML = rep(8, `<div class="obrigado"><span class="script">obrigada!</span>
+      <p>Cada docinho foi feito à mão, pensando em você. Se gostou, me conta? Uma foto nos stories${insta ? " marcando " + insta : ""} faz meu dia 💗</p>
+      <div class="linha-qr"><img src="qr-agradecimento.svg" alt=""><div><b>a próxima fornada</b><small>abre terça · aponta a câmera</small></div></div></div>`);
+    document.addEventListener("click", (e) => { const b = e.target.closest("[data-imprimir]"); if (!b) return; document.body.dataset.so = b.dataset.imprimir; document.fonts.ready.then(() => { window.print(); delete document.body.dataset.so; }); });
+  </script>
+</body>
+</html>
