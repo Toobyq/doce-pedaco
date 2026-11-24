@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Doce Pedaço · meu caderninho</title>
+  <meta name="description" content="Pedidos, clientes, agenda e divulgação da Doce Pedaço.">
+  <meta name="theme-color" content="#FFF9F5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Doce Pedaço">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral">
+      <a class="logo" href="#inicio"><img src="assets/logo.svg" alt=""><span class="l-doce">doce</span><span class="l-pedaco">pedaço</span></a>
+      <p class="script lateral-slogan">meu caderninho ♡</p>
+      <button class="nuvem hidden" data-acao="nuvem-agora" id="nuvem-lateral"></button>
+      <nav class="menu" id="menu-lateral"></nav>
+    </aside>
+
+    <header class="topo">
+      <a class="logo logo-p topo-logo" href="#inicio"><span class="l-doce">doce</span>&nbsp;<span class="l-pedaco">pedaço</span></a>
+      <span style="display:flex;gap:8px;align-items:center"><button class="nuvem hidden" data-acao="nuvem-agora" id="nuvem-topo"></button><button class="btn mini claro" id="btn-novo-topo">+ Pedido</button></span>
+    </header>
+
+    <main id="tela" class="tela" tabindex="-1"></main>
+
+    <nav class="barra" id="barra"></nav>
+  </div>
+
+  <div class="folha-fundo" id="folha-fundo"></div>
+  <section class="folha" id="folha" role="dialog" aria-modal="true"></section>
+  <div class="toast" id="toast"></div>
+  <div id="impressao"></div>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/conteudo.js"></script>
+  <script src="assets/fornada.js"></script>
+  <script src="assets/mimos.js"></script>
+  <script src="assets/ideias.js"></script>
+  <script src="assets/interativo.js"></script>
+  <script src="assets/assistente.js"></script>
+  <script src="assets/sync.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

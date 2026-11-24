@@ -1,0 +1,7 @@
+.DS_Store
+*.HEIC
+# fica só neste Mac (anotações pessoais e fotos originais com dados do celular)
+HANDOFF.md
+handoff.py
+docs/fotos-originais/
+docs/etiqueta-original.*

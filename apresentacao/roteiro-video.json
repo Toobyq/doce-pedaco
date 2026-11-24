@@ -1,0 +1,56 @@
+[
+  {
+    "cena": 0,
+    "tela": "s-hero",
+    "titulo": "Oi, que bom te ver!",
+    "narracao": "Oi! Que bom te ver por aqui. Em um minutinho eu te mostro como a Doce Pedaço vai funcionar daqui pra frente. Bora?"
+  },
+  {
+    "cena": 1,
+    "tela": "s-cardapio",
+    "titulo": "O site das clientes",
+    "narracao": "Esse é o site das suas clientes. Toda terça abre a fornada da semana: elas escolhem os docinhos, o dia de entrega, e pronto. O pedido chega direto pra você."
+  },
+  {
+    "cena": 2,
+    "tela": "p-inicio",
+    "titulo": "Seu caderninho",
+    "narracao": "E esse aqui é o seu caderninho. Logo de cara você vê como está a fornada. Cada coraçãozinho é uma vaga. Lotou? O site fecha sozinho."
+  },
+  {
+    "cena": 3,
+    "tela": "p-fornada-2",
+    "titulo": "Pausar é um toque",
+    "narracao": "Cansou, ou a cozinha encheu? É só tocar em pausar. Sem culpa nenhuma. Na terça seguinte, reabre sozinho."
+  },
+  {
+    "cena": 4,
+    "tela": "p-pedido",
+    "titulo": "Cada pedido, passo a passo",
+    "narracao": "Cada pedido tem o seu caminho: confirmado, em produção, pronto e entregue. E as mensagens do WhatsApp já vêm escritinhas. É só tocar e enviar."
+  },
+  {
+    "cena": 5,
+    "tela": "p-assistente",
+    "titulo": "Conheça o Pedacinho",
+    "narracao": "E tem o Pedacinho, o seu assistente. Fala com ele como se fosse uma amiga: anota o pedido da Ana, dois brownies pra sexta. Ele faz pra você, rapidinho."
+  },
+  {
+    "cena": 6,
+    "tela": "p-ideias",
+    "titulo": "O que está em alta",
+    "narracao": "Na aba Ideias você vê o que está em alta, com fontes de verdade. E tem ideias de doces, salgados, veganos e low carb. Gostou de uma? Um toque, e ela vai pro seu cardápio."
+  },
+  {
+    "cena": 7,
+    "tela": "p-divulgacao",
+    "titulo": "Fotos que viram post",
+    "narracao": "Suas fotos viram artes prontas pro Instagram, com a sua etiqueta. É só baixar e postar."
+  },
+  {
+    "cena": 8,
+    "tela": "p-conquistas",
+    "titulo": "E tem confete!",
+    "narracao": "E a cada conquista, tem confete! Agora é com você: abre o seu caderninho e faz o tour. Feito com carinho, pra você."
+  }
+]

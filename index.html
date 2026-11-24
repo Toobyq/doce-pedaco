@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Doce Pedaço · uma fornada por semana</title>
+  <meta name="description" content="Brownies, cookies e bolos feitos com carinho. Pedidos toda terça, entrega a partir de quinta.">
+  <meta name="theme-color" content="#FFF9F5">
+  <meta property="og:title" content="Doce Pedaço ♡">
+  <meta property="og:description" content="Uma fornada por semana. Pedidos toda terça, com cardápio novinho.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="s-topo">
+    <a class="s-marca" href="#" aria-label="Doce Pedaço, início"><img src="assets/logo.svg" alt=""><span><b>doce</b> <i>pedaço</i></span></a>
+    <nav class="s-nav">
+      <a href="#fornada">a fornada</a>
+      <a href="#como">como funciona</a>
+      <a href="#duvidas">dúvidas</a>
+      <a href="#" id="nav-insta" target="_blank" rel="noopener">instagram</a>
+    </nav>
+    <a class="btn rosa mini" href="#fornada" id="topo-cta">fazer pedido ♡</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="s-hero">
+      <div class="s-hero-texto">
+        <span class="s-etiqueta-fornada fita esq" id="hero-fornada">fornada da semana</span>
+        <h1>Doces feitos com carinho, <em class="doce">uma fornada por semana.</em></h1>
+        <p class="s-sub">Toda <b>terça</b> eu abro os pedidos com um cardápio novinho. Você escolhe o seu pedacinho e, a partir de <b>quinta</b>, ele chega até você <span class="coracao">♡</span></p>
+        <div class="s-hero-acoes">
+          <a class="btn rosa" href="#fornada" id="hero-cta">ver a fornada da semana</a>
+          <span class="mao s-hero-nota" id="hero-nota"></span>
+        </div>
+      </div>
+
+      <div class="s-selo-area" aria-hidden="true">
+        <svg class="s-anel" viewBox="0 0 300 300"><defs><path id="circulo" d="M150 150m-128 0a128 128 0 1 1 256 0a128 128 0 1 1-256 0"/></defs>
+          <text><textPath href="#circulo" id="anel-texto">pedidos abertos ♡ toda terça ♡ pedidos abertos ♡ toda terça ♡</textPath></text></svg>
+        <div class="s-selo">
+          <img src="assets/logo.svg" alt="">
+          <span class="l-doce">doce</span><span class="l-pedaco">pedaço</span>
+          <span class="s-selo-frase">Feito com carinho<em>para você ♡</em></span>
+          <span class="s-selo-val">Peça até<br><b id="selo-data">__ / __ / __</b></span>
+        </div>
+        <span class="s-mini m1" data-desenho="cookie"></span>
+        <span class="s-mini m2" data-desenho="brownie"></span>
+        <span class="s-mini m3" data-desenho="bolo"></span>
+        <div class="postit s-postit" id="postit"><span class="mao" id="postit-1">carregando…</span><small id="postit-2"></small></div>
+      </div>
+    </section>
+
+    <div class="s-faixa" aria-hidden="true"><div>
+      <span>brownie molhadinho</span><span>✦</span><span>cookie que escorre</span><span>✦</span><span>bolo de abraçar</span><span>✦</span><span>feito com carinho para você ♡</span><span>✦</span>
+      <span>brownie molhadinho</span><span>✦</span><span>cookie que escorre</span><span>✦</span><span>bolo de abraçar</span><span>✦</span><span>feito com carinho para você ♡</span><span>✦</span>
+    </div></div>
+
+    <!-- DIRETO DA COZINHA (fotos reais: config.js → galeria) -->
+    <section class="s-secao hidden" id="cozinha">
+      <p class="mao s-sobre">direto da cozinha</p>
+      <h2 class="s-h2">Feito aqui, <em class="doce">pertinho de você</em></h2>
+      <div class="s-polaroids" id="polaroids"></div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="s-secao" id="como">
+      <p class="mao s-sobre">como funciona</p>
+      <h2 class="s-h2">Uma semana na <em class="doce">Doce Pedaço</em></h2>
+      <ol class="s-semana" id="semana"></ol>
+    </section>
+
+    <!-- FORNADA -->
+    <section class="s-secao" id="fornada">
+      <p class="mao s-sobre" id="fornada-sobre">muda toda semana!</p>
+      <h2 class="s-h2" id="fornada-titulo">O que tem nessa fornada</h2>
+      <div class="s-aviso hidden" id="aviso"></div>
+      <div id="cardapio" class="s-cardapio"><p class="muted">Carregando a fornada…</p></div>
+    </section>
+
+    <!-- PEDIDO -->
+    <section class="s-secao hidden" id="pedido">
+      <div class="s-ticket">
+        <div class="s-ticket-topo">
+          <p class="mao">o seu pedido</p>
+          <h2>Quase lá, que delícia ♡</h2>
+        </div>
+        <ul class="s-resumo" id="resumo"></ul>
+        <form id="form" autocomplete="on" novalidate>
+          <div class="s-linha"><label for="nome">seu nome</label><input id="nome" name="name" autocomplete="name" required maxlength="80" placeholder="como posso te chamar?"></div>
+          <div class="s-linha"><label for="tel">whatsapp</label><input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(51) 99999-9999"></div>
+          <fieldset class="s-grupo"><legend>quando você quer?</legend><div class="chips" id="dias"></div></fieldset>
+          <fieldset class="s-grupo"><legend>como prefere?</legend><div class="chips" id="receber"></div>
+            <p class="small muted s-dica">Depois eu te chamo no WhatsApp pra combinar horário e lugar ♡</p></fieldset>
+          <div class="s-linha hidden" id="linha-end"><label for="end">endereço</label><input id="end" autocomplete="street-address" maxlength="200" placeholder="rua, número, bairro"></div>
+          <div class="s-linha"><label for="obs">um recadinho?</label><input id="obs" maxlength="400" placeholder="sabor, alergia, é presente…"></div>
+          <div class="s-total"><span>total</span><strong id="total">R$ 0,00</strong></div>
+          <p class="s-erro" id="erro" role="alert"></p>
+          <button class="btn rosa s-enviar" id="enviar" type="submit">enviar meu pedido ♡</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS (aparece quando houver depoimentos reais no config.js) -->
+    <section class="s-secao hidden" id="depoimentos">
+      <p class="mao s-sobre">quem já provou</p>
+      <h2 class="s-h2">Recadinhos das clientes <em class="doce">♡</em></h2>
+      <div class="s-deps" id="dep-lista"></div>
+    </section>
+
+    <!-- PERGUNTAS -->
+    <section class="s-secao" id="duvidas">
+      <p class="mao s-sobre">ficou alguma dúvida?</p>
+      <h2 class="s-h2">Perguntinhas frequentes</h2>
+      <div class="s-faq">
+        <details><summary>Quando posso fazer meu pedido?</summary><p>Toda terça-feira, o dia todo, aqui no site. As vagas são limitadas, então quando lota a fornada fecha. Se fechou, na terça seguinte tem fornada nova ♡</p></details>
+        <details><summary>Quando recebo?</summary><p>A partir de quinta-feira. Você escolhe o dia na hora do pedido. Às vezes também tem entrega na quarta à noite.</p></details>
+        <details><summary>Como pago?</summary><p>Depois do pedido eu te chamo no WhatsApp pra confirmar tudo e combinar o pagamento (Pix, dinheiro ou cartão).</p></details>
+        <details><summary>Onde retiro?</summary><p>Combinamos pelo WhatsApp o melhor lugar e horário pra você. Se preferir, também entrego em casa (com uma taxinha).</p></details>
+        <details><summary>Quanto tempo dura?</summary><p>Brownies duram uns 5 dias, cookies 7, e bolos e potes de 2 a 3 dias na geladeira. A data certinha vem na etiqueta de cada doce.</p></details>
+        <details><summary>Tem opção vegana, sem glúten ou low carb?</summary><p>Quando tem na fornada, aparece com um selinho no cardápio, e dá pra filtrar lá em cima. Se você tem alguma alergia, escreve no recadinho do pedido.</p></details>
+        <details><summary>Faz encomenda pra festa ou aniversário?</summary><p>Faço sim! Me chama no WhatsApp ou no Instagram com a data e a quantidade que eu te passo as opções ♡</p></details>
+      </div>
+    </section>
+
+    <!-- SUCESSO -->
+    <section class="s-secao hidden" id="sucesso">
+      <div class="s-ticket s-ok">
+        <span class="s-ok-desenho" data-desenho="coracao"></span>
+        <p class="mao">ebaaa!</p>
+        <h2 id="ok-titulo">Recebi seu pedido ♡</h2>
+        <p id="ok-texto"></p>
+        <ul class="s-resumo" id="ok-resumo"></ul>
+        <div class="s-ok-acoes" id="ok-acoes"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="s-rodape">
+    <div class="s-rodape-selo"><span class="l-doce">doce</span><span class="l-pedaco">pedaço</span><span class="script">feito com carinho</span></div>
+    <p>Tudo feito à mão, em pequenas fornadas, com ingrediente de verdade.<br>Cartão fidelidade: no 10º pedido, o docinho é presente 🎁</p>
+    <p class="s-rodape-links"><a href="#" id="rod-insta" target="_blank" rel="noopener">instagram</a> · <a href="#" id="rod-zap" target="_blank" rel="noopener">whatsapp</a></p>
+  </footer>
+
+  <div class="s-sacola" id="sacola" aria-live="polite"><a href="#pedido" class="s-sacola-in">
+    <span class="s-sacola-qtd" id="sacola-qtd">0</span><span><small id="sacola-txt">docinhos</small><b id="sacola-total">R$ 0,00</b></span><span class="s-sacola-ir">finalizar →</span>
+  </a></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/fornada.js"></script>
+  <script src="assets/mimos.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>
