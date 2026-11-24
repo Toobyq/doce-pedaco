@@ -44,8 +44,12 @@ O site registra de onde a cliente veio e mostra isso em **Resultados → De onde
 ## Ligar a nuvem
 Passo a passo em `docs/SINCRONIZACAO.md`. Sem a nuvem, o site lê o `config.js` e os pedidos vão pelo WhatsApp (limite e pausa ao vivo precisam da nuvem).
 
-## Publicar (grátis)
-GitHub Pages, Netlify ou Cloudflare Pages. Precisa de HTTPS para o iPhone instalar o painel.
+## No ar (GitHub Pages)
+- Site das clientes: https://toobyq.github.io/doce-pedaco/
+- Caderninho: https://toobyq.github.io/doce-pedaco/painel.html
+- Apresentação: https://toobyq.github.io/doce-pedaco/apresentacao/
+
+Cada `git push` na `main` publica de novo em 1–2 minutos.
 
 ## Testes feitos
 - `docs/supabase.sql` em Postgres real (PGlite): 22 verificações de regras e permissões.
