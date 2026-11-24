@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doce Pedaço · enquanto você estava fora</title><link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght,SOFT@9..144,400..900,0..100&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.w { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+header { text-align: center; margin-bottom: 20px; } header h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); margin: 6px 0; } header .mao { font-size: 1.7rem; }
+.tudo { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 14px 0 4px; }
+.parte { position: relative; background: var(--leite); border-radius: 26px; padding: 26px 22px 20px; box-shadow: var(--sombra); margin-top: 26px; }
+.parte .n { position: absolute; top: -13px; left: 20px; background: var(--morango); color: #fff; font-family: var(--f-mao); font-size: 1.2rem; font-weight: 700; padding: 0 12px 2px; border-radius: 999px; transform: rotate(-3deg); }
+.parte .mao { font-size: 1.25rem; } .parte h2 { font-size: 1.5rem; margin: 2px 0 10px; }
+.parte audio { width: 100%; margin-bottom: 8px; } .parte p { color: var(--chocolate-2); margin: 6px 0 12px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+</style></head><body><div class="w">
+<header><span class="mao">enquanto você estava fora</span><h1>O que eu adiantei</h1><p class="muted">Ouça por partes ou leia. Cada parte tem os links pra testar.</p>
+<div class="tudo"><button class="btn rosa" id="todas">▶ ouvir tudo em sequência</button><small class="muted">voz provisória do computador (a final será Chirp 3 HD)</small></div></header>
+<section class="parte"><span class="n">parte 1</span><span class="mao">pra divulgar na rua</span><h2>Material impresso</h2>
+      <audio controls preload="none" src="audio/novidade1.m4a"></audio><p>Criei quatro materiais pra imprimir: um panfleto, um cartão fidelidade de papel com frente e verso, um adesivo redondo pra colar na embalagem e um cartãozinho de obrigada pra ir dentro do pedido. Todos têm QR code que leva pro site. E cada um tem uma origem diferente, então a aba Resultados vai mostrar qual material está trazendo mais clientes. Já deixei os PDFs prontos pra imprimir em casa ou mandar pra gráfica.</p><div class="links"><a class="btn mini claro" href="../materiais/" target="_blank" rel="noopener">Material pra imprimir</a><a class="btn mini claro" href="../materiais/pdf/cartao.pdf" target="_blank" rel="noopener">PDF do cartão fidelidade</a></div></section><section class="parte"><span class="n">parte 2</span><span class="mao">pra anunciar o site</span><h2>Lançamento no Instagram</h2>
+      <audio controls preload="none" src="audio/novidade2.m4a"></audio><p>Fiz um carrossel de três posts pra anunciar o site: agora tem site, como funciona a fornada, e o cartão fidelidade. A legenda já está pronta, com as hashtags. Fica na aba Divulgação do caderninho, com botão pra baixar e copiar.</p><div class="links"><a class="btn mini claro" href="../painel.html#divulgacao" target="_blank" rel="noopener">Ver na Divulgação</a><a class="btn mini claro" href="../assets/artes/lancamento-1.jpg" target="_blank" rel="noopener">Post 1</a></div></section><section class="parte"><span class="n">parte 3</span><span class="mao">quase lá</span><h2>Supabase</h2>
+      <audio controls preload="none" src="audio/novidade3.m4a"></audio><p>O projeto doce pedaço já foi criado. Quando você voltar, feche aquele aviso de recurso novo no X do canto, rode o SQL no SQL Editor e me mande a URL do projeto e a chave pública. Eu deixei um atalho pronto: ele testa a conexão, recusa a chave errada se você mandar por engano, liga no site e publica, tudo de uma vez.</p></section><section class="parte"><span class="n">parte 4</span><span class="mao">falta um clique seu</span><h2>Ideias todo dia</h2>
+      <audio controls preload="none" src="audio/novidade4.m4a"></audio><p>A rotina que atualiza a aba Ideias todo dia de manhã, com pesquisa e fontes reais, já está escrita. Ela precisa que a sua conta do Claude esteja conectada ao GitHub. É só rodar barra web setup aqui no terminal, ou conectar pelo site do Claude. Feito isso, eu crio a rotina na hora.</p></section>
+</div>
+<script>
+const as = [...document.querySelectorAll("audio")];
+as.forEach((a, i) => a.addEventListener("ended", () => { if (window.seq && as[i + 1]) { as[i + 1].scrollIntoView({ behavior: "smooth", block: "center" }); as[i + 1].play(); } }));
+as.forEach((a) => a.addEventListener("play", () => as.forEach((b) => b !== a && b.pause())));
+document.getElementById("todas").onclick = () => { window.seq = true; as[0].scrollIntoView({ behavior: "smooth", block: "center" }); as[0].play(); };
+</script></body></html>
