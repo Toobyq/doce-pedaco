@@ -10,6 +10,10 @@ const CFG = window.DP_CONFIG;
 const TXT = window.DP_CONTEUDO;
 const F = window.DPFornada, M = window.DPMimos;
 const IDEIAS = window.DP_IDEIAS || { ideias: [], emAlta: [], fontes: [], cuidados: [] };
+// proteção: ignora itens incompletos vindos da atualização automática
+IDEIAS.emAlta = (IDEIAS.emAlta || []).filter((t) => t && t.titulo && t.texto);
+IDEIAS.ideias = (IDEIAS.ideias || []).filter((i) => i && i.id && i.nome && i.aba);
+IDEIAS.fontes = (IDEIAS.fontes || []).filter((f) => f && f.nome && f.url);
 const TAGS = ["vegano", "sem glúten", "sem lactose", "low carb", "sem açúcar"];
 const CHAVE = "docepedaco:v1";
 
