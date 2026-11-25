@@ -16,11 +16,7 @@ window.DP_IDEIAS = {
     { titulo: "Sobremesa em pote e em taça", fonte: { nome: "Portal de Prefeitura", url: "https://portaldeprefeitura.com.br/curiosidades/sobremesas-em-alta/607802/" }, texto: "Potes com camadas visíveis, bons para delivery, e versões mini para consumo individual aparecem como aposta, e as taças individuais são sugeridas para a ceia de Ano Novo. Ótimo para a virada do ano.", ideia: "pave-pote" },
     { titulo: "Ingredientes brasileiros", fonte: { nome: "Mercado & Consumo", url: "https://mercadoeconsumo.com.br/19/01/2026/foodservice/pitaya-botanicos-e-picancia-doce-as-tendencias-de-sabor-que-avancam-para-2026/" }, texto: "Cupuaçu, castanha-do-pará e cumaru aparecem entre os sabores que avançam em 2026, ligados à valorização da identidade nacional.", ideia: "bolo-cumaru" },
     { titulo: "Mini salgados e tortas individuais", fonte: { nome: "Mercado Hoje", url: "https://mercadohoje.uai.com.br/2026/06/11/como-diversificar-as-receitas-de-bolos-e-salgados-para-transformar-produtos-simples-em-novas-oportunidades-de-venda/" }, texto: "Mini tortas salgadas e empadas de massa mais leve ganharam espaço pela praticidade. Boa opção para completar a fornada e a ceia.", ideia: "empadinha" },
-    { titulo: "Sem glúten e veganos saem do nicho", fonte: { nome: "Band", url: "https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519" }, texto: "A Band descreve a confeitaria vegana como campo fértil para inovação, mais do que moda passageira. Ter 1 ou 2 opções na fornada atrai um público novo.", ideia: "brw-vegano" },
-    { nome: "Doces natalinos para vender (Nuvemshop)", url: "https://www.nuvemshop.com.br/blog/doces-natalinos-para-vender/" },
-    { nome: "Sobremesas em alta (Portal de Prefeitura)", url: "https://portaldeprefeitura.com.br/curiosidades/sobremesas-em-alta/607802/" },
-    { nome: "Tendências de sabor 2026 (Mercado & Consumo)", url: "https://mercadoeconsumo.com.br/19/01/2026/foodservice/pitaya-botanicos-e-picancia-doce-as-tendencias-de-sabor-que-avancam-para-2026/" },
-    { nome: "Confeitaria vegana e o futuro (Band)", url: "https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519" }
+    { titulo: "Sem glúten e veganos saem do nicho", fonte: { nome: "Band", url: "https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519" }, texto: "A Band descreve a confeitaria vegana como campo fértil para inovação, mais do que moda passageira. Ter 1 ou 2 opções na fornada atrai um público novo.", ideia: "brw-vegano" }
   ],
 
   fontes: [
@@ -31,7 +27,11 @@ window.DP_IDEIAS = {
     { nome: "Confeitaria vegana: oportunidades (Massa Madre)", url: "https://massamadreblog.com.br/confeitaria/confeitaria-vegana-tecnicas-profissionais-e-oportunidades-de-mercado-para-crescer-2/" },
     { nome: "Chocolates veganos na Páscoa 2026 (Band)", url: "https://www.band.com.br/band-multi/campinas-e-regiao/noticias/chocolates-veganos-ganham-espaco-e-impulsionam-vendas-na-pascoa-202604011654" },
     { nome: "Tendências de panetone 2026 (Exame)", url: "https://exame.com/casual/tendencias-de-panetone-para-2026/" },
-    { nome: "Diversificar bolos e salgados (Mercado Hoje, 2026)", url: "https://mercadohoje.uai.com.br/2026/06/11/como-diversificar-as-receitas-de-bolos-e-salgados-para-transformar-produtos-simples-em-novas-oportunidades-de-venda/" }
+    { nome: "Diversificar bolos e salgados (Mercado Hoje, 2026)", url: "https://mercadohoje.uai.com.br/2026/06/11/como-diversificar-as-receitas-de-bolos-e-salgados-para-transformar-produtos-simples-em-novas-oportunidades-de-venda/" },
+    { nome: "Doces natalinos para vender (Nuvemshop)", url: "https://www.nuvemshop.com.br/blog/doces-natalinos-para-vender/" },
+    { nome: "Sobremesas em alta (Portal de Prefeitura)", url: "https://portaldeprefeitura.com.br/curiosidades/sobremesas-em-alta/607802/" },
+    { nome: "Tendências de sabor 2026 (Mercado & Consumo)", url: "https://mercadoeconsumo.com.br/19/01/2026/foodservice/pitaya-botanicos-e-picancia-doce-as-tendencias-de-sabor-que-avancam-para-2026/" },
+    { nome: "Confeitaria vegana e o futuro (Band)", url: "https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519" }
   ],
 
   // abas: doces · biscoitos · salgados · veganos · light
