@@ -70,7 +70,7 @@ function produtoParaEditar(nome) {
   if (exato) return { p: exato };
   const L = S.produtos.filter((p) => A().normal(p.nome).replace(/s\b/g, "").includes(n));
   if (L.length === 1) return { p: L[0] };
-  if (L.length > 1) return { erro: `"${nome}" pode ser: ${L.map((p) => p.nome).join(", ")}. Qual deles?` };
+  if (L.length > 1) return { erro: `"${nome}" pode ser: ${L.map((p) => p.nome).join(", ")}. Qual deles?`, opcoes: L.map((p) => p.nome) };
   return { erro: `Não achei "${nome}" no cardápio. Tem: ${S.produtos.map((p) => p.nome).join(", ")}` };
 }
 const linhaProduto = (p) => `${p.nome} (${p.categoria}) · ${A().brl(p.preco)}${p.custo ? ` · custo ${A().brl(p.custo)} · margem ${Math.round((p.preco - p.custo) / p.preco * 100)}%` : " · sem custo anotado"}${p.ativo === false ? " · ESCONDIDO" : ""}`;
@@ -186,7 +186,7 @@ const EXEC = {
 
     if (i.acao === "adicionar") {
       if (S.produtos.some((p) => A().normal(p.nome) === A().normal(nome))) return { erro: `Já existe "${nome}" no cardápio. Quer alterar ele?` };
-      if (!campos.preco) return { erro: `Qual vai ser o preço de "${nome}"?` };
+      if (!campos.preco) return { erro: `Falta o preço de "${nome}". Pergunte a ela o preço (ou o custo, para sugerir um) e chame de novo com o preço.`, falta: "preco" };
       const p = { id: A().uid(), nome, categoria: campos.categoria || "Outros", descricao: campos.descricao || "", preco: campos.preco, custo: campos.custo || 0,
         antecedencia: campos.antecedencia ?? 1, ativo: true, naFornada: true, limite: null, tags: campos.tags || [], foto: null, atualizadoEm: agora };
       S.produtos.push(p); A().confete(30);
@@ -243,6 +243,7 @@ async function perguntarIA(texto) {
 }
 
 /* ---------------- modo básico (grátis, sem IA) ---------------- */
+let pendente = null; // pergunta que o modo básico fez e espera resposta (preço, qual doce)
 const NUM = { um: 1, uma: 1, dois: 2, duas: 2, tres: 3, "três": 3, quatro: 4, cinco: 5, seis: 6, sete: 7, oito: 8, nove: 9, dez: 10, doze: 12, meia: 6 };
 const DIAS = { segunda: 1, terca: 2, quarta: 3, quinta: 4, sexta: 5, sabado: 6, domingo: 0 };
 function dataDita(t) {
@@ -254,26 +255,58 @@ function dataDita(t) {
 function basico(original) {
   const t = A().normal(original); const S = A().estado();
   const cmd = (nome, input, resposta) => { const r = executar(nome, input); return r.erro ? r.erro : resposta(r); };
-  // cardápio: preço, doce novo, esconder/mostrar
+  // ---- cardápio (com memória: se ele perguntou algo, a próxima frase pode ser só a resposta) ----
   const reais = (s) => { const k = String(s).match(/(\d+(?:[.,]\d{1,2})?)/); return k ? parseFloat(k[1].replace(",", ".")) : null; };
-  const limpaNome = (s) => s.replace(/^(o|a|os|as|um|uma)\s+/i, "").replace(/[.!?]+$/, "").trim();
-  let c = t.match(/(?:muda|mudar|altera|alterar|coloca|colocar|poe|bota|atualiza|sobe|baixa)\w*\s+(?:o\s+)?(?:preco|valor)\s+d[oa]s?\s+(.+?)\s+(?:pra|para|por|em|a)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)/) ||
-          t.match(/^(?:o\s+|a\s+)?(.+?)\s+(?:agora\s+)?(?:custa|vai custar|passa a custar|sai a|sai por)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)/);
-  if (c) return cmd("editar_cardapio", { acao: "alterar", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: reais(c[2]), custo: null, antecedencia: null, selos: null },
-    (r) => `Feito! ${r.produto} 💗 O site já mostra o preço novo.`);
-  c = original.match(/(?:adiciona|adicionar|coloca|colocar|inclui|incluir|cria|criar|bota|p[õo]e)\w*\s+(.+?)\s+no\s+card[aá]pio/i);
-  if (c && /\bde volta\b/i.test(c[1])) return cmd("editar_cardapio", { acao: "mostrar", produto: limpaNome(c[1].replace(/\s*de volta\s*/i, " ")), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
-    (r) => `Voltou pro site 👀 ${r.produto}`);
-  if (c) { const preco = reais(t.slice(t.indexOf("cardapio"))) ?? reais(c[1]); const nome = limpaNome(c[1].replace(/\s*(?:por|a|de)?\s*(?:r\$\s*)?\d+(?:[.,]\d{1,2})?\s*(?:reais|conto)?\s*/i, " "));
-    if (!preco) return `Qual vai ser o preço de ${nome}? Ex.: "adiciona ${nome} no cardápio por 12 reais" ♡`;
-    return cmd("editar_cardapio", { acao: "adicionar", produto: nome.charAt(0).toUpperCase() + nome.slice(1), novo_nome: null, categoria: null, descricao: null, preco, custo: null, antecedencia: null, selos: null },
-      (r) => `Ebaa, doce novo! ${r.produto} ✨ Abre o Cardápio pra escolher a categoria, a foto e o custo.`); }
-  c = t.match(/(?:tira|tirar|remove|remover|esconde|esconder|exclui|excluir|apaga|apagar|desativa|desativar)\s+(.+?)\s+do\s+(?:cardapio|site)/);
-  if (c) return cmd("editar_cardapio", { acao: "esconder", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
-    (r) => `Escondi do site 🙈 ${r.produto}\nEle fica guardado: quando quiser, é só pedir pra voltar pro cardápio. Pra apagar de vez, abre o Cardápio.`);
-  c = t.match(/(?:volta|voltar|mostra|mostrar|reativa|reativar|ativa|ativar|traz)\s+(?:de volta\s+)?(.+?)\s+(?:pro|para o|no|ao)\s+(?:cardapio|site)/);
-  if (c) return cmd("editar_cardapio", { acao: "mostrar", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
-    (r) => `Voltou pro site 👀 ${r.produto}`);
+  const limpaNome = (s) => s.replace(/^(o|a|os|as|um|uma|do|da|de)\s+/i, "").replace(/\s+(?:por|a|de|pra|para)\s*$/i, "").replace(/[.!?:,]+$/, "").trim();
+  const semPreco = (s) => s.replace(/\s*(?:,|-)?\s*(?:\b(?:por|a|de|custando|valor)\b)?\s*(?:r\$\s*)?\d+(?:[.,]\d{1,2})?\s*(?:reais|real|conto|pila)?\s*/gi, " ").replace(/\s{2,}/g, " ").trim();
+  const nulos = { novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null };
+  const RESP = {
+    adicionar: (r) => `Ebaa, doce novo! ${r.produto} ✨ Abre o Cardápio pra escolher a categoria, a foto e o custo.`,
+    alterar: (r) => `Feito! ${r.produto} 💗 O site já mostra.`,
+    esconder: (r) => `Escondi do site 🙈 ${r.produto}\nEle fica guardado: quando quiser, é só pedir pra voltar pro cardápio. Pra apagar de vez, abre o Cardápio.`,
+    mostrar: (r) => `Voltou pro site 👀 ${r.produto}`
+  };
+  const cardapio = (input) => {
+    const r = executar("editar_cardapio", { ...nulos, ...input });
+    if (r.opcoes) { pendente = { tipo: "qual", input, opcoes: r.opcoes };
+      return `Qual deles? ${r.opcoes.map((n, k) => `\n${k + 1}. ${n}`).join("")}\n(pode responder só o número ou o nome ♡)`; }
+    if (r.falta === "preco") { pendente = { tipo: "preco", input };
+      return `Que delícia! Qual vai ser o preço de ${input.produto}? 💗\n(é só mandar o valor, tipo "12" ou "12,50")`; }
+    return r.erro ? r.erro : RESP[input.acao](r);
+  };
+  if (pendente) {
+    const pd = pendente; pendente = null;
+    if (/^(deixa|esquece|cancela|nao|nada|desisti)/.test(t)) return "Tudo bem, deixei pra lá 💗";
+    if (pd.tipo === "preco" && reais(t) != null && t.replace(/[^a-z]/g, "").replace(/reais|real|conto|pila|rs|por|e|fica|vai|ser|custar|custa|pode|coloca|bota/g, "").length < 4)
+      return cardapio({ ...pd.input, preco: reais(t) });
+    if (pd.tipo === "qual") {
+      const ords = { primeiro: 1, primeira: 1, segundo: 2, segunda: 2, terceiro: 3, terceira: 3, ultimo: pd.opcoes.length, ultima: pd.opcoes.length };
+      const k = t.match(/^\D*(\d)\D*$/) ? +t.match(/\d/)[0] : Object.entries(ords).find(([w]) => new RegExp(`\\b${w}\\b`).test(t))?.[1];
+      const n = t.replace(/^(o|a|e|é|eh)\s+/, "").replace(/s\b/g, "");
+      const escolhido = k ? pd.opcoes[k - 1] : pd.opcoes.find((o) => A().normal(o) === t) || pd.opcoes.filter((o) => A().normal(o).replace(/s\b/g, "").includes(n)).sort((a, b) => a.length - b.length)[0] ||
+        pd.opcoes.find((o) => n.split(" ").filter((w) => w.length > 2).every((w) => A().normal(o).includes(w)));
+      if (escolhido) return cardapio({ ...pd.input, produto: escolhido });
+    }
+    // não parecia resposta: segue como pedido novo
+  }
+  const PRECO = "(?:r\\$\\s*)?(\\d+(?:[.,]\\d{1,2})?)";
+  let c = t.match(new RegExp(`(?:muda|mudar|altera|alterar|coloca|colocar|poe|bota|atualiza|sobe|subir|baixa|baixar|aumenta|aumentar|diminui|diminuir|troca|trocar|ajusta|ajustar)\\w*\\s+(?:o\\s+)?(?:preco|valor)\\s+d[oa]s?\\s+(.+?)\\s+(?:pra|para|por|em|a)\\s+${PRECO}`)) ||
+          t.match(new RegExp(`(?:aumenta|aumentar|sobe|subir|baixa|baixar|diminui|diminuir|muda|mudar|altera|alterar)\\s+(?:o\\s+|a\\s+)?(.+?)\\s+(?:pra|para)\\s+${PRECO}`)) ||
+          t.match(new RegExp(`^(?:o\\s+|a\\s+)?(.+?)\\s+(?:agora\\s+)?(?:custa|vai custar|passa a custar|passa a ser|sai a|sai por|vai ser|fica|vai ficar|agora e)\\s+(?:a\\s+|por\\s+)?${PRECO}`));
+  if (c && !/pedido|anota|quer\b/.test(t)) return cardapio({ acao: "alterar", produto: limpaNome(c[1]), preco: reais(c[2]) });
+  c = original.match(/(?:adiciona|adicionar|adicione|coloca|colocar|coloque|inclui|incluir|cria|criar|bota|botar|p[õo]e|p[õo]r|acrescenta|acrescentar|cadastra|cadastrar)\w*\s+(.+?)\s+(?:no|ao|pro|para o)\s+card[aá]pio(.*)$/i) ||
+      original.match(/(?:quero|vou|queria|posso)\s+(?:come[çc]ar a\s+)?(?:vender|fazer e vender|oferecer)\s+(.+?)()$/i) ||
+      original.match(/(?:doce|produto|item)\s+novo\s*[:\-]?\s*(.+?)()$/i);
+  if (c && /\bde volta\b/i.test(c[1])) return cardapio({ acao: "mostrar", produto: limpaNome(c[1].replace(/\s*de volta\s*/i, " ")) });
+  if (c) { const preco = reais(c[2]) ?? reais(c[1]); const nome = limpaNome(semPreco(c[1]));
+    if (nome.length < 2) return "Qual é o nome do doce novo? ♡";
+    return cardapio({ acao: "adicionar", produto: nome.charAt(0).toUpperCase() + nome.slice(1), preco }); }
+  c = t.match(/(?:tira|tirar|remove|remover|esconde|esconder|exclui|excluir|apaga|apagar|desativa|desativar|some com)\s+(.+?)\s+do\s+(?:cardapio|site)/) ||
+      t.match(/(?:nao vou|parei de|nao quero)\s+(?:mais\s+)?(?:vender|fazer)\s+(.+?)(?:\s+por (?:enquanto|um tempo))?[.!]*$/);
+  if (c) return cardapio({ acao: "esconder", produto: limpaNome(c[1]) });
+  c = t.match(/(?:volta|voltar|mostra|mostrar|reativa|reativar|ativa|ativar|traz|trazer)\s+(?:de volta\s+)?(.+?)\s+(?:pro|para o|no|ao)\s+(?:cardapio|site)/) ||
+      t.match(/(?:voltei a|vou voltar a)\s+(?:vender|fazer)\s+(.+?)[.!]*$/);
+  if (c) return cardapio({ acao: "mostrar", produto: limpaNome(c[1]) });
   if (/(qual|quais|como (?:ta|esta)|me (?:mostra|fala)|lista|ver)\b.*(cardapio|precos)/.test(t) && !/abre|abrir/.test(t))
     return cmd("ver_cardapio", {}, (r) => `Seu cardápio:\n• ${r.produtos.join("\n• ")}`);
   if (/(pausa|pausar|fecha|fechar|para|parar)\b.*pedido|pedidos?.*(pausa|fecha)/.test(t) && !/reabr|abre|volta/.test(t))
@@ -373,8 +406,14 @@ async function enviar(texto) {
   const pensando = bolha("ele", "<span class='pc-pontinhos'><i></i><i></i><i></i></span>", "pensando");
   cartoes = [];
   let resposta;
+  const antes = historico.length;
   try { resposta = iaDisponivel() ? await perguntarIA(texto) : basico(texto); }
-  catch (e) { console.warn(e); resposta = basico(texto); }
+  catch (e) {
+    console.warn(e);
+    if (cartoes.length) resposta = "Fiz o que aparece aqui embaixo, mas a internet oscilou no meio 🥺 Confere se ficou certinho?";
+    else { historico.length = antes; // a IA não chegou a responder: tira a pergunta pela metade da conversa
+      resposta = basico(texto) + "\n\n(a internet tá fraquinha, então respondi no modo básico ♡)"; }
+  }
   pensando.remove();
   if (cartoes.length && !/^#(novo-pedido|editar-pedido)/.test(location.hash)) A().render(); // a tela de trás acompanha o que ele fez
   const html = esc(resposta).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
