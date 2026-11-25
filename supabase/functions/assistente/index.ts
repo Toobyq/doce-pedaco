@@ -87,6 +87,8 @@ Deno.serve(async (req) => {
     return json(200, { content: resposta.content, stop_reason: resposta.stop_reason });
   } catch (e) {
     if (e instanceof Anthropic.RateLimitError) return json(429, { erro: "muitas perguntas seguidas, espera um minutinho" });
+    // o detalhe vai para os registros da função (supabase logs --service functions)
+    console.error("[assistente] erro da API:", e instanceof Anthropic.APIError ? `${e.status} ${e.message}` : String(e));
     if (e instanceof Anthropic.APIError) return json(502, { erro: `Claude respondeu ${e.status}` });
     return json(500, { erro: "falha ao falar com o Claude" });
   }

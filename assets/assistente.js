@@ -16,6 +16,7 @@ const F = window.DPFornada, M = window.DPMimos;
 
 /* ---------------- ferramentas (mesmas para a IA e o modo básico) ---------------- */
 const str = (d) => ({ type: ["string", "null"], description: d });
+const RIGIDAS = new Set(["criar_pedido", "mudar_status", "registrar_pagamento", "editar_cardapio"]);
 const FERRAMENTAS = [
   { name: "criar_pedido", description: "Anota um pedido novo no caderninho. Use os nomes de produto do cardápio. Se a data não foi dita, use null (o app escolhe o próximo dia de entrega da fornada).",
     input_schema: { type: "object", additionalProperties: false, required: ["cliente_nome", "telefone", "itens", "data_entrega", "recebimento", "endereco", "observacao"],
@@ -54,7 +55,11 @@ const FERRAMENTAS = [
         selos: { type: ["array", "null"], items: { type: "string", enum: ["vegano", "sem glúten", "sem lactose", "low carb", "sem açúcar"] } } } } },
   { name: "abrir_tela", description: "Abre uma tela do caderninho.",
     input_schema: { type: "object", additionalProperties: false, required: ["tela"], properties: { tela: { type: "string", enum: ["inicio", "fornada", "pedidos", "agenda", "clientes", "cardapio", "ideias", "divulgacao", "rotina", "resultados", "ajustes"] } } } }
-].map((t) => ({ ...t, strict: true }));
+].map((t) => (RIGIDAS.has(t.name) ? { ...t, strict: true } : t));
+// "strict" garante o formato exato, mas a API aceita no máximo 16 campos que podem ser null
+// (somando todas as ferramentas rígidas) e 24 opcionais. Só as que mexem em dados importantes são rígidas;
+// as outras funcionam igual e o código delas já tolera campo faltando.
+// Ao criar ferramenta nova, rode: node scripts/conferir-ferramentas.js
 
 let cartoes = []; // cartões de ação mostrados junto da resposta
 const achaProduto = (nome) => {
@@ -158,6 +163,7 @@ const EXEC = {
     return { ok: true, mensagem_pronta: msg, observacao: "Ela precisa tocar no botão para abrir o WhatsApp e enviar." };
   },
   criar_lembrete({ texto, data, hora }) {
+    if (!texto) return { erro: "Lembrar de quê?" }; data = /^\d{4}-\d{2}-\d{2}$/.test(data || "") ? data : A().hoje();
     const S = A().estado(); S.lembretes.push({ id: A().uid(), texto, data, hora: hora || "", feito: false, atualizadoEm: new Date().toISOString() }); A().salvar();
     cartoes.push({ tipo: "tela", h: "#agenda", titulo: "📝 Lembrete criado", sub: `${texto} · ${A().relativo(data)}${hora ? " às " + hora : ""}` });
     return { ok: true };
