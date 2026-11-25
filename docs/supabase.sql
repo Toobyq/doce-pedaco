@@ -176,6 +176,13 @@ begin
   return jsonb_build_object('numero', n, 'total', total, 'semana', j.semana);
 end $$;
 
+-- permissões das tabelas (projetos novos do Supabase não liberam sozinhos; as regras RLS acima continuam valendo)
+grant usage on schema public to anon, authenticated;
+grant select, insert, update on public.estado to authenticated;
+grant select, insert, update, delete on public.vitrine to authenticated;
+grant select, update, delete on public.pedidos_site to authenticated;
+revoke all on public.estado, public.vitrine, public.pedidos_site from anon;
+
 -- quem pode chamar o quê
 revoke all on function public._janela(jsonb, timestamptz) from public, anon, authenticated;
 revoke all on function public._usados(jsonb, date) from public, anon, authenticated;
