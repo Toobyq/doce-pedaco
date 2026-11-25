@@ -44,6 +44,14 @@ const FERRAMENTAS = [
     input_schema: { type: "object", additionalProperties: false, required: ["texto", "data", "hora"], properties: { texto: { type: "string" }, data: { type: "string", description: "AAAA-MM-DD" }, hora: str("HH:MM") } } },
   { name: "ideias_em_alta", description: "Tendências e ideias de doces em alta nesta semana (pesquisadas na internet, com fontes).",
     input_schema: { type: "object", additionalProperties: false, required: [], properties: {} } },
+  { name: "ver_cardapio", description: "Mostra o cardápio completo (inclusive doces escondidos), com preço, custo, margem e categoria.",
+    input_schema: { type: "object", additionalProperties: false, required: [], properties: {} } },
+  { name: "editar_cardapio", description: "Muda o cardápio dela (vale também para o site das clientes). acao: adicionar (doce novo; precisa de preço), alterar (muda só os campos não nulos), esconder (some do site, mas fica guardado), mostrar (volta a aparecer), excluir (apaga de vez: só depois de ela confirmar). produto = nome do doce como está no cardápio (ou o nome do novo). Use null no que não mudar.",
+    input_schema: { type: "object", additionalProperties: false, required: ["acao", "produto", "novo_nome", "categoria", "descricao", "preco", "custo", "antecedencia", "selos"],
+      properties: { acao: { type: "string", enum: ["adicionar", "alterar", "esconder", "mostrar", "excluir"] }, produto: { type: "string" }, novo_nome: str("só para renomear"),
+        categoria: str("ex.: Brownies, Cookies, Bolos, Kits ou uma nova"), descricao: str("frase curtinha e gostosa"), preco: { type: ["number", "null"], description: "preço de venda em reais" },
+        custo: { type: ["number", "null"], description: "ingredientes + embalagem, em reais" }, antecedencia: { type: ["integer", "null"], description: "dias para produzir" },
+        selos: { type: ["array", "null"], items: { type: "string", enum: ["vegano", "sem glúten", "sem lactose", "low carb", "sem açúcar"] } } } } },
   { name: "abrir_tela", description: "Abre uma tela do caderninho.",
     input_schema: { type: "object", additionalProperties: false, required: ["tela"], properties: { tela: { type: "string", enum: ["inicio", "fornada", "pedidos", "agenda", "clientes", "cardapio", "ideias", "divulgacao", "rotina", "resultados", "ajustes"] } } } }
 ].map((t) => ({ ...t, strict: true }));
@@ -55,6 +63,17 @@ const achaProduto = (nome) => {
     S.produtos.find((p) => A().normal(p.nome).replace(/s\b/g, "").includes(n)) ||
     S.produtos.find((p) => n.includes(A().normal(p.nome).replace(/s\b/g, "").split(" ")[0]) && p.naFornada !== false);
 };
+// para editar o cardápio a busca é mais cuidadosa: se o nome servir para mais de um doce, pergunta qual
+function produtoParaEditar(nome) {
+  const S = A().estado(); const n = A().normal(nome).replace(/s\b/g, "");
+  const exato = S.produtos.find((p) => A().normal(p.nome) === A().normal(nome) || A().normal(p.nome).replace(/s\b/g, "") === n);
+  if (exato) return { p: exato };
+  const L = S.produtos.filter((p) => A().normal(p.nome).replace(/s\b/g, "").includes(n));
+  if (L.length === 1) return { p: L[0] };
+  if (L.length > 1) return { erro: `"${nome}" pode ser: ${L.map((p) => p.nome).join(", ")}. Qual deles?` };
+  return { erro: `Não achei "${nome}" no cardápio. Tem: ${S.produtos.map((p) => p.nome).join(", ")}` };
+}
+const linhaProduto = (p) => `${p.nome} (${p.categoria}) · ${A().brl(p.preco)}${p.custo ? ` · custo ${A().brl(p.custo)} · margem ${Math.round((p.preco - p.custo) / p.preco * 100)}%` : " · sem custo anotado"}${p.ativo === false ? " · ESCONDIDO" : ""}`;
 const pedidoNum = (n) => A().estado().pedidos.find((p) => p.numero === Number(n));
 const linhaPedido = (p) => { const c = A().cliente(p.clienteId) || {}; return `#${p.numero} ${c.nome || ""} · ${A().resumoItens(p)} · ${A().relativo(p.data)} · ${A().nomeStatus(p.status)} · ${A().brl(A().total(p))}${A().saldo(p) > 0 ? ` (falta ${A().brl(A().saldo(p))})` : ""}`; };
 
@@ -147,6 +166,45 @@ const EXEC = {
     const I = window.DP_IDEIAS || { emAlta: [] };
     return { atualizado: I.atualizadoEm, resumo: I.resumo, em_alta: I.emAlta.map((t) => `${t.titulo}: ${t.texto}${t.fonte && t.fonte.nome ? ` (fonte: ${t.fonte.nome})` : ""}`) };
   },
+  ver_cardapio() {
+    const S = A().estado();
+    cartoes.push({ tipo: "tela", h: "#cardapio", titulo: "🧁 Seu cardápio", sub: `${S.produtos.filter((p) => p.ativo !== false).length} doce(s) à venda` });
+    return { produtos: S.produtos.map(linhaProduto) };
+  },
+  editar_cardapio(i) {
+    const S = A().estado(); const agora = new Date().toISOString();
+    const nome = String(i.produto || "").trim(); if (!nome) return { erro: "Qual doce?" };
+    const campos = {};
+    if (i.novo_nome) campos.nome = i.novo_nome.trim();
+    if (i.categoria) campos.categoria = i.categoria.trim();
+    if (i.descricao != null) campos.descricao = i.descricao.trim();
+    if (i.preco != null) { if (!(i.preco > 0)) return { erro: "O preço precisa ser maior que zero." }; campos.preco = Math.round(i.preco * 100) / 100; }
+    if (i.custo != null) campos.custo = Math.max(0, Math.round(i.custo * 100) / 100);
+    if (i.antecedencia != null) campos.antecedencia = Math.max(0, i.antecedencia);
+    if (i.selos) campos.tags = i.selos;
+    const fim = (p, titulo) => { A().salvar(); cartoes.push({ tipo: "tela", h: "#cardapio", titulo, sub: linhaProduto(p) }); return { ok: true, produto: linhaProduto(p), site: p.ativo === false ? "não aparece no site" : "já aparece no site" }; };
+
+    if (i.acao === "adicionar") {
+      if (S.produtos.some((p) => A().normal(p.nome) === A().normal(nome))) return { erro: `Já existe "${nome}" no cardápio. Quer alterar ele?` };
+      if (!campos.preco) return { erro: `Qual vai ser o preço de "${nome}"?` };
+      const p = { id: A().uid(), nome, categoria: campos.categoria || "Outros", descricao: campos.descricao || "", preco: campos.preco, custo: campos.custo || 0,
+        antecedencia: campos.antecedencia ?? 1, ativo: true, naFornada: true, limite: null, tags: campos.tags || [], foto: null, atualizadoEm: agora };
+      S.produtos.push(p); A().confete(30);
+      return fim(p, `✨ ${p.nome} entrou no cardápio`);
+    }
+    const r = produtoParaEditar(nome); if (r.erro) return r; const p = r.p;
+    if (i.acao === "excluir") {
+      S.produtos = S.produtos.filter((x) => x.id !== p.id); A().salvar();
+      cartoes.push({ tipo: "tela", h: "#cardapio", titulo: `🗑️ ${p.nome} saiu do cardápio`, sub: "Os pedidos antigos com ele continuam guardados" });
+      return { ok: true, excluido: p.nome };
+    }
+    if (campos.nome && campos.nome !== p.nome && S.produtos.some((x) => x !== p && A().normal(x.nome) === A().normal(campos.nome))) return { erro: `Já existe "${campos.nome}" no cardápio.` };
+    if (i.acao === "esconder") campos.ativo = false;
+    if (i.acao === "mostrar") campos.ativo = true;
+    if (!Object.keys(campos).length) return { erro: "O que você quer mudar nele? (preço, nome, descrição...)" };
+    Object.assign(p, campos, { atualizadoEm: agora });
+    return fim(p, i.acao === "esconder" ? `🙈 ${p.nome} escondido do site` : i.acao === "mostrar" ? `👀 ${p.nome} voltou pro site` : `✏️ ${p.nome} atualizado`);
+  },
   abrir_tela({ tela }) { setTimeout(() => { location.hash = "#" + tela; }, 600); return { ok: true }; }
 };
 function executar(nome, input) {
@@ -162,6 +220,7 @@ function contexto() {
   return `<contexto>Hoje: ${A().fmtData(A().hoje())} (${A().hoje()}). Dona: ${S.config.dona || "—"}.
 Fornada nº ${F.numero(s.semana)}: ${s.estado}, ${s.usados} pedido(s)${s.limite ? ` de ${s.limite}` : ""}. Dias de entrega: ${F.diasEntrega(S.fornada, s.semana).map((d) => `${d.rotulo} ${d.data}`).join(", ")}.
 Cardápio: ${S.produtos.filter((p) => p.ativo !== false).map((p) => `${p.nome} ${A().brl(p.preco)}${p.naFornada === false ? " (fora da fornada)" : ""}`).join("; ")}.
+Escondidos do site: ${S.produtos.filter((p) => p.ativo === false).map((p) => p.nome).join(", ") || "nenhum"}.
 Clientes: ${S.clientes.slice(0, 60).map((c) => c.nome).join(", ")}.</contexto>`;
 }
 async function perguntarIA(texto) {
@@ -195,6 +254,28 @@ function dataDita(t) {
 function basico(original) {
   const t = A().normal(original); const S = A().estado();
   const cmd = (nome, input, resposta) => { const r = executar(nome, input); return r.erro ? r.erro : resposta(r); };
+  // cardápio: preço, doce novo, esconder/mostrar
+  const reais = (s) => { const k = String(s).match(/(\d+(?:[.,]\d{1,2})?)/); return k ? parseFloat(k[1].replace(",", ".")) : null; };
+  const limpaNome = (s) => s.replace(/^(o|a|os|as|um|uma)\s+/i, "").replace(/[.!?]+$/, "").trim();
+  let c = t.match(/(?:muda|mudar|altera|alterar|coloca|colocar|poe|bota|atualiza|sobe|baixa)\w*\s+(?:o\s+)?(?:preco|valor)\s+d[oa]s?\s+(.+?)\s+(?:pra|para|por|em|a)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)/) ||
+          t.match(/^(?:o\s+|a\s+)?(.+?)\s+(?:agora\s+)?(?:custa|vai custar|passa a custar|sai a|sai por)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)/);
+  if (c) return cmd("editar_cardapio", { acao: "alterar", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: reais(c[2]), custo: null, antecedencia: null, selos: null },
+    (r) => `Feito! ${r.produto} 💗 O site já mostra o preço novo.`);
+  c = original.match(/(?:adiciona|adicionar|coloca|colocar|inclui|incluir|cria|criar|bota|p[õo]e)\w*\s+(.+?)\s+no\s+card[aá]pio/i);
+  if (c && /\bde volta\b/i.test(c[1])) return cmd("editar_cardapio", { acao: "mostrar", produto: limpaNome(c[1].replace(/\s*de volta\s*/i, " ")), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
+    (r) => `Voltou pro site 👀 ${r.produto}`);
+  if (c) { const preco = reais(t.slice(t.indexOf("cardapio"))) ?? reais(c[1]); const nome = limpaNome(c[1].replace(/\s*(?:por|a|de)?\s*(?:r\$\s*)?\d+(?:[.,]\d{1,2})?\s*(?:reais|conto)?\s*/i, " "));
+    if (!preco) return `Qual vai ser o preço de ${nome}? Ex.: "adiciona ${nome} no cardápio por 12 reais" ♡`;
+    return cmd("editar_cardapio", { acao: "adicionar", produto: nome.charAt(0).toUpperCase() + nome.slice(1), novo_nome: null, categoria: null, descricao: null, preco, custo: null, antecedencia: null, selos: null },
+      (r) => `Ebaa, doce novo! ${r.produto} ✨ Abre o Cardápio pra escolher a categoria, a foto e o custo.`); }
+  c = t.match(/(?:tira|tirar|remove|remover|esconde|esconder|exclui|excluir|apaga|apagar|desativa|desativar)\s+(.+?)\s+do\s+(?:cardapio|site)/);
+  if (c) return cmd("editar_cardapio", { acao: "esconder", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
+    (r) => `Escondi do site 🙈 ${r.produto}\nEle fica guardado: quando quiser, é só pedir pra voltar pro cardápio. Pra apagar de vez, abre o Cardápio.`);
+  c = t.match(/(?:volta|voltar|mostra|mostrar|reativa|reativar|ativa|ativar|traz)\s+(?:de volta\s+)?(.+?)\s+(?:pro|para o|no|ao)\s+(?:cardapio|site)/);
+  if (c) return cmd("editar_cardapio", { acao: "mostrar", produto: limpaNome(c[1]), novo_nome: null, categoria: null, descricao: null, preco: null, custo: null, antecedencia: null, selos: null },
+    (r) => `Voltou pro site 👀 ${r.produto}`);
+  if (/(qual|quais|como (?:ta|esta)|me (?:mostra|fala)|lista|ver)\b.*(cardapio|precos)/.test(t) && !/abre|abrir/.test(t))
+    return cmd("ver_cardapio", {}, (r) => `Seu cardápio:\n• ${r.produtos.join("\n• ")}`);
   if (/(pausa|pausar|fecha|fechar|para|parar)\b.*pedido|pedidos?.*(pausa|fecha)/.test(t) && !/reabr|abre|volta/.test(t))
     return cmd("pausar_pedidos", { pausar: true }, () => "Pronto, pausei os pedidos da fornada 💜 Descansa um pouquinho!");
   if (/(reabr|abre|abrir|volta|voltar|despaus)/.test(t) && /pedido|fornada|site/.test(t))
@@ -237,12 +318,12 @@ function basico(original) {
   m = t.match(/(?:cliente|quem e|sobre a|sobre o)\s+([a-zà-ú]+)/); if (m) return cmd("buscar_cliente", { nome: m[1] }, (r) => `${r.nome}: ${r.pedidos} pedido(s), ${r.gasto} no total, cartão ${r.selos}.`);
   for (const [tela, re] of [["fornada", /fornada/], ["ideias", /ideias?/], ["clientes", /clientes/], ["resultados", /resultado/], ["divulgacao", /divulga|instagram/], ["cardapio", /cardapio/], ["agenda", /agenda/]])
     if (re.test(t) && /abre|abrir|mostra|ver|vai/.test(t)) return cmd("abrir_tela", { tela }, () => "Abrindo ✨");
-  return "Ainda não entendi esse 🥺 Experimenta assim:\n• \"anota pedido da Ana: 2 brownies pra quinta\"\n• \"quanto vendi esse mês?\"\n• \"o que tenho pra hoje?\"\n• \"pedido 12 tá pronto\"\n• \"pausa os pedidos\"\n• \"me lembra de comprar chocolate amanhã\"";
+  return "Ainda não entendi esse 🥺 Experimenta assim:\n• \"anota pedido da Ana: 2 brownies pra quinta\"\n• \"quanto vendi esse mês?\"\n• \"o que tenho pra hoje?\"\n• \"pedido 12 tá pronto\"\n• \"pausa os pedidos\"\n• \"muda o preço do brownie tradicional pra 12\"\n• \"adiciona brigadeiro gourmet no cardápio por 5 reais\"\n• \"tira o bolo no pote do cardápio\"\n• \"me lembra de comprar chocolate amanhã\"";
 }
 
 /* ---------------- interface (chat + voz) ---------------- */
 let falarRespostas = false, ouvindo = null;
-const SUGESTOES = ["o que tenho pra hoje?", "quanto vendi esse mês?", "anota pedido da Ana: 2 brownies pra quinta", "quem me deve?", "pausa os pedidos", "ideias em alta"];
+const SUGESTOES = ["o que tenho pra hoje?", "quanto vendi esse mês?", "anota pedido da Ana: 2 brownies pra quinta", "quem me deve?", "como tá meu cardápio?", "pausa os pedidos", "ideias em alta"];
 function montar() {
   if ($("#pedacinho-btn")) return;
   const b = document.createElement("button"); b.id = "pedacinho-btn"; b.setAttribute("aria-label", "Falar com o Pedacinho, seu assistente");
@@ -281,7 +362,7 @@ function abrir() {
   $("#pc-modo").textContent = iaDisponivel() ? "inteligência ligada ✨" : "modo básico · entende os comandos mais comuns";
   if (!$("#pc-msgs").children.length) {
     const S = A().estado(); const n = S && S.config.dona ? A().primeiroNome(S.config.dona) : "";
-    bolha("ele", `Oi${n ? ", " + esc(n) : ""}! 💗 Eu sou o Pedacinho. Posso anotar pedidos, mudar status, pausar a fornada, te lembrar das coisas, preparar mensagens e te contar como estão as vendas.<br><b>É só pedir</b>, escrevendo ou tocando no 🎤`);
+    bolha("ele", `Oi${n ? ", " + esc(n) : ""}! 💗 Eu sou o Pedacinho. Posso anotar pedidos, mudar status, pausar a fornada, mexer no seu cardápio (preços, doces novos, esconder um doce), te lembrar das coisas, preparar mensagens e te contar como estão as vendas.<br><b>É só pedir</b>, escrevendo ou tocando no 🎤`);
   }
   setTimeout(() => $("#pc-txt").focus(), 250);
 }
