@@ -20,7 +20,7 @@ window.DP_CONFIG = {
   // Sincronização entre computador e iPhone (Supabase, grátis).
   // Passo a passo em docs/SINCRONIZACAO.md. Vazio = dados só no aparelho.
   // A "chave" aqui é a chave PÚBLICA (anon/publishable): pode ficar no site.
-  nuvem: { url: "", chave: "" },
+  nuvem: { url: "https://gayobhqqgcxzkapuqyga.supabase.co", chave: "sb_publishable_aQ1ft-8PcuxuOlzaWWTVEA_GBDC7uPJ" },
   // Regras da fornada semanal (o painel muda isso em "Fornada").
   // Pedidos na terça (opcional: quarta de manhã); entregas a partir de quinta.
   fornada: {
