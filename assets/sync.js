@@ -151,8 +151,15 @@ async function subirFoto(blob, nome) {
   return `${URL_BASE}/storage/v1/object/public/fotos/${encodeURIComponent(nome)}`;
 }
 
+async function apagarPedidoSite(id) {
+  // pedido do site cancelado/excluído: tira do banco para liberar a vaga da fornada
+  if (!configurado() || !sessao || !id) return;
+  try { await rest("DELETE", `?id=eq.${encodeURIComponent(id)}`, null, { Prefer: "return=minimal" }, "pedidos_site"); }
+  catch (e) { console.warn("[site] não consegui liberar a vaga", e); }
+}
+
 window.DPSync = {
-  subirFoto,
+  subirFoto, apagarPedidoSite,
   tokenAtual: () => token(),
   configurado, status: () => status, email: () => sessao && sessao.email, logado: () => !!sessao,
   iniciar(api) {

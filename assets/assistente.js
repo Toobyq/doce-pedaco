@@ -84,6 +84,7 @@ const EXEC = {
   mudar_status({ numero, status }) {
     const p = pedidoNum(numero); if (!p) return { erro: `Não existe pedido #${numero}` };
     p.status = status; p.atualizadoEm = new Date().toISOString(); A().salvar();
+    if (status === "cancelado" && p.siteId && window.DPSync) DPSync.apagarPedidoSite(p.siteId);
     cartoes.push({ tipo: "pedido", id: p.id, titulo: `#${p.numero}: ${A().nomeStatus(status)} ✓`, sub: linhaPedido(p) });
     if (status === "entregue") A().confete(40);
     return { ok: true, pedido: linhaPedido(p) };

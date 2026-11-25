@@ -1,6 +1,6 @@
 /* Doce Pedaço — service worker: deixa o app abrir sem internet.
    Estratégia: mostra a versão guardada e busca a nova em segundo plano. */
-const VERSAO = "dp-v8";
+const VERSAO = "dp-v9";
 const ARQUIVOS = ["./", "index.html", "painel.html", "manifest.webmanifest", "assets/style.css", "assets/app.css", "assets/site.css",
   "assets/config.js", "assets/conteudo.js", "assets/fornada.js", "assets/mimos.js", "assets/ideias.js", "assets/interativo.js", "assets/assistente.js", "assets/artes/brownie-post.jpg", "assets/app.js", "assets/sync.js", "assets/site.js",
   "assets/logo.svg", "assets/icon.svg", "assets/icon-192.png", "assets/icon-512.png"];

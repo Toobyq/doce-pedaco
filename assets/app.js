@@ -1458,8 +1458,8 @@ const ACOES = {
     baixar(`doce-pedaco-agenda-${hoje()}.ics`, ics(ps.flatMap(eventosPedido)), "text/calendar"); toast(`${ps.length} pedido(s) exportado(s) com alarme 📅`); },
   etiquetas: (d) => imprimirEtiquetas(pedido(d.id)),
   repetir: (d) => { const p = pedido(d.id); const f = formDePedido(p); delete f.id; rascunho = { ...f, id: null, data: addDias(hoje(), S.config.antecedencia || 0), pago: 0, status: "novo", origem: p.origem }; form = null; location.hash = "#novo-pedido"; },
-  cancelar: (d) => { const p = pedido(d.id); confirmar(`Cancelar o pedido #${p.numero}?`, "Cancelar pedido", () => { p.status = "cancelado"; salvar(); render(); }); },
-  "excluir-pedido": (d) => { const p = pedido(d.id); confirmar(`Excluir o pedido #${p.numero}?`, "Excluir", () => { S.pedidos = S.pedidos.filter((x) => x.id !== p.id); salvar(); location.hash = "#pedidos"; }); },
+  cancelar: (d) => { const p = pedido(d.id); confirmar(`Cancelar o pedido #${p.numero}?`, "Cancelar pedido", () => { p.status = "cancelado"; p.atualizadoEm = new Date().toISOString(); salvar(); render(); if (p.siteId && window.DPSync) DPSync.apagarPedidoSite(p.siteId); }); },
+  "excluir-pedido": (d) => { const p = pedido(d.id); confirmar(`Excluir o pedido #${p.numero}?`, "Excluir", () => { S.pedidos = S.pedidos.filter((x) => x.id !== p.id); salvar(); location.hash = "#pedidos"; if (p.siteId && window.DPSync) DPSync.apagarPedidoSite(p.siteId); }); },
   "colar-pedido": () => {
     abrirFolha(`<h2>Colar pedido do WhatsApp</h2><p class="muted small">Copie a mensagem que a cliente enviou pela página de pedidos e cole aqui. O app preenche tudo sozinho.</p>
       <div class="campo"><textarea id="txt-colado" style="min-height:180px" placeholder="Cole a mensagem aqui"></textarea></div>
