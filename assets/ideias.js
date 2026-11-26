@@ -4,19 +4,19 @@
    Preços e custos são SUGESTÕES para começar; ajuste à região.
    ============================================================ */
 window.DP_IDEIAS = {
-  atualizadoEm: "2026-11-25T07:10:00-03:00",
+  atualizadoEm: "2026-11-26T07:15:00-03:00",
   // proximaRevisao: a rotina diária confere novidades; às segundas revisa tudo
-  semana: "25 de novembro a 1º de dezembro de 2026",
-  resumo: "Com o Natal e a virada do ano chegando, as matérias falam de sabores tradicionais e afetivos, chocolates especiais, cítricos cristalizados e cupuaçu. Sobremesas em taça com camadas e moedas de chocolate combinam com a ceia de Ano Novo. Chocolate zero açúcar, opções veganas e salgados assados em formato mini completam a vitrine.",
+  semana: "26 de novembro a 2 de dezembro de 2026",
+  resumo: "Com a Black Friday amanhã e o Natal chegando, as grandes marcas apostam em muitos lançamentos de panetone e em kits para presente. Para a vitrine da Doce Pedaço, as matérias reforçam cítricos cristalizados, chocolates especiais e sabores afetivos. Taças com camadas combinam com a ceia, e o zero açúcar e os salgados assados mini seguem em alta.",
 
   emAlta: [
-    {"titulo":"Cítricos cristalizados e chocolates especiais","texto":"Chefs ouvidos pela Exame apontam chocolates especiais e frutas cítricas cristalizadas (laranja, limão-siciliano) para dar frescor ao Natal brasileiro. Dá para usar em bombons e caixinhas de presente.","fonte":{"nome":"Exame","url":"https://exame.com/casual/tendencias-de-panetone-para-2026/"},"ideia":"bombom-natal"},
-    {"titulo":"Sabores tradicionais e afetivos no Natal","texto":"A Exame traz a previsão de uma temporada com receitas tradicionais, menos invenção exagerada e mais atenção à qualidade dos ingredientes e ao processo artesanal. Panetone trufado cabe bem.","fonte":{"nome":"Exame","url":"https://exame.com/casual/tendencias-de-panetone-para-2026/"},"ideia":"panetone-trufado"},
-    {"titulo":"Cupuaçu e brasilidade","texto":"Segundo o Seu Dinheiro, o chef Tiago Fabri aposta no cupuaçu como ingrediente de destaque da confeitaria em 2026, no resgate da identidade nacional. Combina com bolos e recheios brasileiros.","fonte":{"nome":"Seu Dinheiro","url":"https://www.seudinheiro.com/2026/lifestyle/o-proximo-pistache-chefs-apostam-em-quais-serao-as-proximas-trends-inescapaveis-da-gastronomia-edvl/"},"ideia":"bolo-cumaru"},
-    {"titulo":"Chocolate zero açúcar em alta","texto":"O Consumidor Moderno relata que a busca por chocolates zero açúcar no Mercado Livre subiu 243% na Páscoa de 2026 na comparação com o ano anterior. Vale ter uma opção sem açúcar na fornada.","fonte":{"nome":"Consumidor Moderno","url":"https://consumidormoderno.com.br/como-os-produtos-zero-deixaram-de-ser-restricao-e-viraram-estilo-de-vida/"},"ideia":"brw-lowcarb"},
-    {"titulo":"Taças com camadas e moedas de chocolate na virada","texto":"Para o Ano Novo, a Tenda Atacado sugere taças transparentes que mostram as camadas e moedas de chocolate como símbolo de prosperidade. Ótimo para encomendas da ceia.","fonte":{"nome":"Tenda Atacado","url":"https://www.tendaatacado.com.br/dicas/sobremesa-de-ano-novo/"},"ideia":"pave-pote"},
-    {"titulo":"Empadinhas assadas e mini quiches","texto":"Um guia de 2026 do Labra diz que os salgados assados, como empadinhas, ganham espaço por serem mais leves e práticos, e que o mini quiche entra bem em festas finger food.","fonte":{"nome":"Labra","url":"https://labra.com.br/?p=12183"},"ideia":"empadinha"},
-    {"titulo":"Veganos como campo de inovação","texto":"A Band descreve a confeitaria vegana como área em expansão e inovação técnica. Ter 1 ou 2 opções veganas na fornada atrai um público novo.","fonte":{"nome":"Band","url":"https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519"},"ideia":"brw-vegano"}
+    {"titulo": "Cítricos cristalizados e chocolates especiais", "texto": "Chefs ouvidos pela Exame apontam chocolates especiais e frutas cítricas cristalizadas (laranja, limão-siciliano) para dar frescor ao Natal brasileiro. Dá para usar em bombons e caixinhas de presente.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "bombom-natal"},
+    {"titulo": "Fermentação natural e releituras de clássicos", "texto": "Segundo a Exame, confeiteiros apostam em fermentação natural, chocolates bean to bar, sabores brasileiros e releituras de clássicos. Um panetone trufado afetivo entra bem aqui.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
+    {"titulo": "Bauducco com 15 lançamentos no Natal", "texto": "O Meio & Mensagem conta que a Bauducco prepara 15 lançamentos para o Natal de 2026, incluindo parceria com a Kibon. A concorrência está ativa: capriche no que é artesanal e afetivo.", "fonte": {"nome": "Meio & Mensagem", "url": "https://www.meioemensagem.com.br/marketing/quais-sao-os-planos-da-bauducco-para-o-natal-2026"}, "ideia": "panetone-trufado"},
+    {"titulo": "Kits para presente no Natal", "texto": "Segundo o Mercado & Consumo, a Kopenhagen aposta em kits para presente e mira alta de 15% no Natal. Caixinhas montadas de bombons e doces também funcionam bem para pequenos negócios.", "fonte": {"nome": "Mercado & Consumo", "url": "https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}, "ideia": "bombom-natal"},
+    {"titulo": "Taças com camadas e moedas de chocolate na virada", "texto": "Para o Ano Novo, a Tenda Atacado sugere taças transparentes que mostram as camadas e moedas de chocolate como símbolo de prosperidade. Ótimo para encomendas da ceia.", "fonte": {"nome": "Tenda Atacado", "url": "https://www.tendaatacado.com.br/dicas/sobremesa-de-ano-novo/"}, "ideia": "pave-pote"},
+    {"titulo": "Chocolate zero açúcar em alta", "texto": "O Consumidor Moderno relata que a busca por chocolates zero açúcar no Mercado Livre subiu 243% na Páscoa de 2026 na comparação com o ano anterior. Vale ter uma opção sem açúcar na fornada.", "fonte": {"nome": "Consumidor Moderno", "url": "https://consumidormoderno.com.br/como-os-produtos-zero-deixaram-de-ser-restricao-e-viraram-estilo-de-vida/"}, "ideia": "brw-lowcarb"},
+    {"titulo": "Empadinhas assadas e mini quiches", "texto": "Um guia de 2026 do Labra diz que os salgados assados, como empadinhas, ganham espaço por serem mais leves e práticos, e que o mini quiche entra bem em festas finger food.", "fonte": {"nome": "Labra", "url": "https://labra.com.br/?p=12183"}, "ideia": "empadinha"}
   ],
 
   fontes: [
@@ -34,7 +34,9 @@ window.DP_IDEIAS = {
     { nome: "Confeitaria vegana e o futuro (Band)", url: "https://www.band.com.br/receitas/noticias/confeitaria-vegana-futuro-gastronomia-202509251519" },
     {"nome":"Sobremesa de Ano Novo (Tenda Atacado)","url":"https://www.tendaatacado.com.br/dicas/sobremesa-de-ano-novo/"},
     {"nome":"Produtos zero viraram estilo de vida (Consumidor Moderno)","url":"https://consumidormoderno.com.br/como-os-produtos-zero-deixaram-de-ser-restricao-e-viraram-estilo-de-vida/"},
-    {"nome":"Salgados de festa 2026 (Labra)","url":"https://labra.com.br/?p=12183"}
+    {"nome":"Salgados de festa 2026 (Labra)","url":"https://labra.com.br/?p=12183"},
+    {"nome":"Planos da Bauducco para o Natal 2026 (Meio & Mensagem)","url":"https://www.meioemensagem.com.br/marketing/quais-sao-os-planos-da-bauducco-para-o-natal-2026"},
+    {"nome":"Kopenhagen e kits de presente (Mercado & Consumo)","url":"https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}
   ],
 
   // abas: doces · biscoitos · salgados · veganos · light
