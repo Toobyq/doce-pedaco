@@ -4,18 +4,18 @@
    Preços e custos são SUGESTÕES para começar; ajuste à região.
    ============================================================ */
 window.DP_IDEIAS = {
-  atualizadoEm: "2026-11-26T07:15:00-03:00",
+  atualizadoEm: "2026-11-27T07:15:00-03:00",
   // proximaRevisao: a rotina diária confere novidades; às segundas revisa tudo
-  semana: "26 de novembro a 2 de dezembro de 2026",
-  resumo: "Com a Black Friday amanhã e o Natal chegando, as grandes marcas apostam em muitos lançamentos de panetone e em kits para presente. Para a vitrine da Doce Pedaço, as matérias reforçam cítricos cristalizados, chocolates especiais e sabores afetivos. Taças com camadas combinam com a ceia, e o zero açúcar e os salgados assados mini seguem em alta.",
+  semana: "27 de novembro a 3 de dezembro de 2026",
+  resumo: "Neste fim de ano, chefs ouvidos pela Exame apostam na volta às raízes tradicionais, em sabores afetivos e em releituras de sobremesas famosas em formato de panetone. Cestas de presente personalizadas e panetones recheados puxam as encomendas, e já aparecem opções veganas e sem glúten nas prateleiras. Para a vitrine da Doce Pedaço, vale caprichar no afeto, nos kits e em uma opção para quem tem restrição.",
 
   emAlta: [
-    {"titulo": "Cítricos cristalizados e chocolates especiais", "texto": "Chefs ouvidos pela Exame apontam chocolates especiais e frutas cítricas cristalizadas (laranja, limão-siciliano) para dar frescor ao Natal brasileiro. Dá para usar em bombons e caixinhas de presente.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "bombom-natal"},
-    {"titulo": "Fermentação natural e releituras de clássicos", "texto": "Segundo a Exame, confeiteiros apostam em fermentação natural, chocolates bean to bar, sabores brasileiros e releituras de clássicos. Um panetone trufado afetivo entra bem aqui.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
-    {"titulo": "Bauducco com 15 lançamentos no Natal", "texto": "O Meio & Mensagem conta que a Bauducco prepara 15 lançamentos para o Natal de 2026, incluindo parceria com a Kibon. A concorrência está ativa: capriche no que é artesanal e afetivo.", "fonte": {"nome": "Meio & Mensagem", "url": "https://www.meioemensagem.com.br/marketing/quais-sao-os-planos-da-bauducco-para-o-natal-2026"}, "ideia": "panetone-trufado"},
-    {"titulo": "Kits para presente no Natal", "texto": "Segundo o Mercado & Consumo, a Kopenhagen aposta em kits para presente e mira alta de 15% no Natal. Caixinhas montadas de bombons e doces também funcionam bem para pequenos negócios.", "fonte": {"nome": "Mercado & Consumo", "url": "https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}, "ideia": "bombom-natal"},
+    {"titulo": "Volta às raízes e sabores afetivos", "texto": "Segundo a Exame, a chef Saiko Izawa vê a volta às raízes tradicionais como tendência do panetone, e Michelle Kallas, da Mica Chocolates, prevê mais valor para sabores afetivos e ingredientes de qualidade, com menos invenções excessivas. Um panetone trufado de brigadeiro cabe bem aqui.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
+    {"titulo": "Sobremesas famosas em formato de panetone", "texto": "A Exame cita Leonardo Macedo, do Nanica, apontando a releitura de sobremesas famosas em formato de panetone, como o morango cravejado e o banoffee. Dá para adaptar a ideia em mini panetones recheados.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
+    {"titulo": "Cestas de presente personalizadas", "texto": "Uma confeiteira de Belo Horizonte ouvida pelo O Hoje diz que a demanda de fim de ano cresce principalmente por panetones recheados e cestas de presente personalizadas. Caixinhas montadas de bombons e doces são um bom caminho.", "fonte": {"nome": "O Hoje", "url": "https://ohoje.com/2025/12/09/mercado-de-doces/"}, "ideia": "bombom-natal"},
+    {"titulo": "Kits para presente no Natal", "texto": "Segundo o Mercado & Consumo, a Kopenhagen aposta em kits para presente e mira alta de 15% no Natal. O formato também funciona para pequenos negócios.", "fonte": {"nome": "Mercado & Consumo", "url": "https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}, "ideia": "bombom-natal"},
+    {"titulo": "Opções veganas e sem glúten no Natal", "texto": "O guia do Guia o Melhor, atualizado em julho de 2026, lista mini panetone vegano de frutas e panetone sem glúten e sem leite. Quem tem restrição procura opções, então vale ter um doce vegano na fornada.", "fonte": {"nome": "Guia o Melhor", "url": "https://guiaomelhor.com.br/melhor-panetone-sem-gluten"}, "ideia": "brw-vegano"},
     {"titulo": "Taças com camadas e moedas de chocolate na virada", "texto": "Para o Ano Novo, a Tenda Atacado sugere taças transparentes que mostram as camadas e moedas de chocolate como símbolo de prosperidade. Ótimo para encomendas da ceia.", "fonte": {"nome": "Tenda Atacado", "url": "https://www.tendaatacado.com.br/dicas/sobremesa-de-ano-novo/"}, "ideia": "pave-pote"},
-    {"titulo": "Chocolate zero açúcar em alta", "texto": "O Consumidor Moderno relata que a busca por chocolates zero açúcar no Mercado Livre subiu 243% na Páscoa de 2026 na comparação com o ano anterior. Vale ter uma opção sem açúcar na fornada.", "fonte": {"nome": "Consumidor Moderno", "url": "https://consumidormoderno.com.br/como-os-produtos-zero-deixaram-de-ser-restricao-e-viraram-estilo-de-vida/"}, "ideia": "brw-lowcarb"},
     {"titulo": "Empadinhas assadas e mini quiches", "texto": "Um guia de 2026 do Labra diz que os salgados assados, como empadinhas, ganham espaço por serem mais leves e práticos, e que o mini quiche entra bem em festas finger food.", "fonte": {"nome": "Labra", "url": "https://labra.com.br/?p=12183"}, "ideia": "empadinha"}
   ],
 
@@ -36,7 +36,9 @@ window.DP_IDEIAS = {
     {"nome":"Produtos zero viraram estilo de vida (Consumidor Moderno)","url":"https://consumidormoderno.com.br/como-os-produtos-zero-deixaram-de-ser-restricao-e-viraram-estilo-de-vida/"},
     {"nome":"Salgados de festa 2026 (Labra)","url":"https://labra.com.br/?p=12183"},
     {"nome":"Planos da Bauducco para o Natal 2026 (Meio & Mensagem)","url":"https://www.meioemensagem.com.br/marketing/quais-sao-os-planos-da-bauducco-para-o-natal-2026"},
-    {"nome":"Kopenhagen e kits de presente (Mercado & Consumo)","url":"https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}
+    {"nome":"Kopenhagen e kits de presente (Mercado & Consumo)","url":"https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"},
+    {"nome":"Mercado de doces (O Hoje)","url":"https://ohoje.com/2025/12/09/mercado-de-doces/"},
+    {"nome":"Panetone sem glúten e vegano (Guia o Melhor)","url":"https://guiaomelhor.com.br/melhor-panetone-sem-gluten"}
   ],
 
   // abas: doces · biscoitos · salgados · veganos · light
