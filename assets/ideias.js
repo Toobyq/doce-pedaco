@@ -4,19 +4,18 @@
    Preços e custos são SUGESTÕES para começar; ajuste à região.
    ============================================================ */
 window.DP_IDEIAS = {
-  atualizadoEm: "2026-11-27T07:15:00-03:00",
+  atualizadoEm: "2026-11-28T07:20:00-03:00",
   // proximaRevisao: a rotina diária confere novidades; às segundas revisa tudo
-  semana: "27 de novembro a 3 de dezembro de 2026",
-  resumo: "Neste fim de ano, chefs ouvidos pela Exame apostam na volta às raízes tradicionais, em sabores afetivos e em releituras de sobremesas famosas em formato de panetone. Cestas de presente personalizadas e panetones recheados puxam as encomendas, e já aparecem opções veganas e sem glúten nas prateleiras. Para a vitrine da Doce Pedaço, vale caprichar no afeto, nos kits e em uma opção para quem tem restrição.",
+  semana: "28 de novembro a 4 de dezembro de 2026",
+  resumo: "Dezembro está chegando e as encomendas de docerias costumam subir, com panetones, caixas de presente e sobremesas de ceia puxando a procura. Em alta também estão doces em camadas, mini porções e kits bonitos para presentear, além de salgados assados mais leves. Para a Doce Pedaço, vale abrir logo as encomendas de caixinhas e deixar uma opção sem leite ou vegana na fornada.",
 
   emAlta: [
-    {"titulo": "Volta às raízes e sabores afetivos", "texto": "Segundo a Exame, a chef Saiko Izawa vê a volta às raízes tradicionais como tendência do panetone, e Michelle Kallas, da Mica Chocolates, prevê mais valor para sabores afetivos e ingredientes de qualidade, com menos invenções excessivas. Um panetone trufado de brigadeiro cabe bem aqui.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
-    {"titulo": "Sobremesas famosas em formato de panetone", "texto": "A Exame cita Leonardo Macedo, do Nanica, apontando a releitura de sobremesas famosas em formato de panetone, como o morango cravejado e o banoffee. Dá para adaptar a ideia em mini panetones recheados.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
-    {"titulo": "Cestas de presente personalizadas", "texto": "Uma confeiteira de Belo Horizonte ouvida pelo O Hoje diz que a demanda de fim de ano cresce principalmente por panetones recheados e cestas de presente personalizadas. Caixinhas montadas de bombons e doces são um bom caminho.", "fonte": {"nome": "O Hoje", "url": "https://ohoje.com/2025/12/09/mercado-de-doces/"}, "ideia": "bombom-natal"},
-    {"titulo": "Kits para presente no Natal", "texto": "Segundo o Mercado & Consumo, a Kopenhagen aposta em kits para presente e mira alta de 15% no Natal. O formato também funciona para pequenos negócios.", "fonte": {"nome": "Mercado & Consumo", "url": "https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"}, "ideia": "bombom-natal"},
-    {"titulo": "Opções veganas e sem glúten no Natal", "texto": "O guia do Guia o Melhor, atualizado em julho de 2026, lista mini panetone vegano de frutas e panetone sem glúten e sem leite. Quem tem restrição procura opções, então vale ter um doce vegano na fornada.", "fonte": {"nome": "Guia o Melhor", "url": "https://guiaomelhor.com.br/melhor-panetone-sem-gluten"}, "ideia": "brw-vegano"},
-    {"titulo": "Taças com camadas e moedas de chocolate na virada", "texto": "Para o Ano Novo, a Tenda Atacado sugere taças transparentes que mostram as camadas e moedas de chocolate como símbolo de prosperidade. Ótimo para encomendas da ceia.", "fonte": {"nome": "Tenda Atacado", "url": "https://www.tendaatacado.com.br/dicas/sobremesa-de-ano-novo/"}, "ideia": "pave-pote"},
-    {"titulo": "Empadinhas assadas e mini quiches", "texto": "Um guia de 2026 do Labra diz que os salgados assados, como empadinhas, ganham espaço por serem mais leves e práticos, e que o mini quiche entra bem em festas finger food.", "fonte": {"nome": "Labra", "url": "https://labra.com.br/?p=12183"}, "ideia": "empadinha"}
+    {"titulo": "Panetone com sabor afetivo e releituras", "texto": "A Exame traz tendências de panetone para 2026: fermentação natural, chocolates especiais, sabores brasileiros e releituras de clássicos. Um panetone trufado de brigadeiro segue o clima.", "fonte": {"nome": "Exame", "url": "https://exame.com/casual/tendencias-de-panetone-para-2026/"}, "ideia": "panetone-trufado"},
+    {"titulo": "Encomendas de doceria sobem em dezembro", "texto": "A Folha de Pernambuco informa que as encomendas de docerias sobem entre 5% e 10% em dezembro, por causa de Natal e Ano Novo. Vale abrir a agenda de encomendas agora.", "fonte": {"nome": "Folha de Pernambuco", "url": "https://www.folhape.com.br/economia/docerias-ganham-alta-demanda-neste-fim-de-ano/251481/"}, "ideia": "bombom-natal"},
+    {"titulo": "Caixas de doces para presentear", "texto": "A Tribuna de Jundiaí mostra uma confeiteira local vendendo caixas presenteáveis com 36, 49 e 64 doces, por R$ 102, R$ 139 e R$ 182, com encomendas até 18 de dezembro. Boa referência para montar caixinhas.", "fonte": {"nome": "Tribuna de Jundiaí", "url": "https://tribunadejundiai.com.br/gastronomia/dona-so-doces-lembrancas-prepara-deliciosas-caixas-presenteaveis-para-o-natal/"}, "ideia": "bombom-natal"},
+    {"titulo": "Camadas, minis e kits", "texto": "O Portal de Prefeitura cita doces em camadas, texturas contrastantes, formatos mini e kits, além de menos açúcar e versões veganas ou fitness. Os potinhos de pavê combinam com tudo isso.", "fonte": {"nome": "Portal de Prefeitura", "url": "https://portaldeprefeitura.com.br/curiosidades/sobremesas-em-alta/607802/"}, "ideia": "pave-pote"},
+    {"titulo": "Salgados assados e mais leves", "texto": "O guia do Labra diz que, em 2026, a tendência é equilibrar fritos e assados: empadinhas e esfihas ganham espaço por serem mais leves e práticas. Também cita opções veganas e sem glúten.", "fonte": {"nome": "Labra", "url": "https://labra.com.br/?p=12183"}, "ideia": "empadinha"},
+    {"titulo": "Loja própria e embalagem com carinho", "texto": "A Nuvemshop destaca que vender kits presenteáveis em loja própria evita a comissão de cerca de 30% dos apps de entrega, e que embalagem bonita e cartão personalizado ajudam nas vendas.", "fonte": {"nome": "Nuvemshop", "url": "https://www.nuvemshop.com.br/blog/doces-natalinos-para-vender/"}, "ideia": "bombom-natal"}
   ],
 
   fontes: [
@@ -38,7 +37,9 @@ window.DP_IDEIAS = {
     {"nome":"Planos da Bauducco para o Natal 2026 (Meio & Mensagem)","url":"https://www.meioemensagem.com.br/marketing/quais-sao-os-planos-da-bauducco-para-o-natal-2026"},
     {"nome":"Kopenhagen e kits de presente (Mercado & Consumo)","url":"https://mercadoeconsumo.com.br/01/11/2026/noticias-varejo/kopenhagen-aposta-em-kits-para-presente-e-mira-alta-de-15-no-natal/"},
     {"nome":"Mercado de doces (O Hoje)","url":"https://ohoje.com/2025/12/09/mercado-de-doces/"},
-    {"nome":"Panetone sem glúten e vegano (Guia o Melhor)","url":"https://guiaomelhor.com.br/melhor-panetone-sem-gluten"}
+    {"nome":"Panetone sem glúten e vegano (Guia o Melhor)","url":"https://guiaomelhor.com.br/melhor-panetone-sem-gluten"},
+    {"nome":"Docerias em alta no fim de ano (Folha de Pernambuco)","url":"https://www.folhape.com.br/economia/docerias-ganham-alta-demanda-neste-fim-de-ano/251481/"},
+    {"nome":"Caixas presenteáveis de Natal (Tribuna de Jundiaí)","url":"https://tribunadejundiai.com.br/gastronomia/dona-so-doces-lembrancas-prepara-deliciosas-caixas-presenteaveis-para-o-natal/"}
   ],
 
   // abas: doces · biscoitos · salgados · veganos · light
